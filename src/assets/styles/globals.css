@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  /* font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif; */
+  /* font-family: "Roboto", "Helvetica", "Arial", sans-serif; */
+  background: #fcfcfe;
+  font-family: "BalooThambi2-Regular";
+  height: 100%;
+  width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: "BalooThambi2-Regular";
+}
+.pro-sidebar-inner {
+  background-color: white !important;
+}
+@media (min-width: 1280px) {
+  .pro-sidebar-inner {
+    background-color: transparent !important;
+  }
+}
+.pro-sidebar .pro-menu > ul > .pro-sub-menu > .pro-inner-list-item {
+  background-color: transparent !important;
+}
+.pro-sidebar.collapsed
+  .pro-menu
+  > ul
+  > .pro-menu-item.pro-sub-menu
+  > .pro-inner-list-item
+  > .popper-inner {
+  background-color: transparent !important;
+}
+.pro-sidebar {
+  min-width: 0px !important;
+}
+@font-face {
+  font-family: "BalooThambi2-Regular";
+  src: local("BalooThambi2-Regular"),
+    url(../fonts/Baloo/BalooThambi2-Regular.ttf);
+}
