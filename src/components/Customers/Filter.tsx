@@ -34,7 +34,7 @@ const Filter: React.FC<IFilter> = ({ isFilter, router }) => {
     }
   }, 1000);
   return (
-    <div className="border bg-white xl:w-56 rounded-md px-4 pt-4 pb-6 hidden xl:block">
+    <div className="border bg-white lg:w-56 rounded-md px-4 pt-4 pb-6 hidden lg:block">
       <div className="flex flex-col">
         <div className="h-12 bg-gray-200 rounded-t-xl flex mb-6">
           <input

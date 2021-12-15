@@ -1,16 +1,13 @@
 import React from "react";
 import "react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css";
 import Link from "next/link";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import { Bookings, Customers } from "@lib/listItems";
 import { useRouter } from "next/router";
 import SidebarDropDown from "@components/SidebarDropDown";
 interface ISidebar {
   isSidebarOpen: boolean;
   setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  isCollapsed: boolean;
 }
 const Sidebar: React.FC<ISidebar> = ({ isSidebarOpen, setIsSidebarOpen }) => {
   function closeSidebar() {
@@ -35,6 +32,7 @@ const Sidebar: React.FC<ISidebar> = ({ isSidebarOpen, setIsSidebarOpen }) => {
           fontSize: "20px",
           padding: "10px",
         }}
+        className="hidden lg:block"
       >
         <Link href={"/"}>
           <a
@@ -53,12 +51,12 @@ const Sidebar: React.FC<ISidebar> = ({ isSidebarOpen, setIsSidebarOpen }) => {
         </Link>
         <SidebarDropDown
           dropDownItems={Bookings}
-          header={"Bookings"}
+          title={"Bookings"}
           icon={"calendar-alt"}
         />
         <SidebarDropDown
           dropDownItems={Customers}
-          header={"Customers"}
+          title={"Customers"}
           icon={"users"}
         />
       </div>

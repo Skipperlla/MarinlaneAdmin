@@ -9,15 +9,15 @@ import { ICustomers } from "types/user";
 const Table: React.FC<{ data: ICustomers[] }> = ({ data }) => {
   const router = useRouter();
   const Titles = [
-    { label: "Customer" },
-    { label: "Last Seen" },
-    { label: "Bookings" },
-    { label: "Total Spent", color: "text-green-500" },
-    { label: "Last Booking Creating" },
-    { label: "New User" },
-    { label: "Title" },
-    { label: "Blocked" },
-    { label: "News" },
+    { title: "Customer" },
+    { title: "Last Seen" },
+    { title: "Bookings" },
+    { title: "Total Spent" },
+    { title: "Last Booking Creating" },
+    { title: "New User" },
+    { title: "Title" },
+    { title: "Blocked" },
+    { title: "News" },
   ];
 
   return (
@@ -26,8 +26,8 @@ const Table: React.FC<{ data: ICustomers[] }> = ({ data }) => {
         <tr className="border-b">
           {Titles.map((item, index) => {
             return (
-              <th className={`py-2 px-4 ${item.color}`} key={index}>
-                {item.label}
+              <th className={`py-2 px-4`} key={index}>
+                {item.title}
               </th>
             );
           })}

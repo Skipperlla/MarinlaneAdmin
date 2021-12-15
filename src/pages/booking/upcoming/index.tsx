@@ -24,7 +24,7 @@ const Customers = () => {
 
   return (
     <Main>
-      <div className="mb-4 w-full xl:flex justify-between items-center text-indigo-600 font-semibold hidden">
+      <div className="mb-4 w-full lg:flex justify-between items-center text-indigo-600 font-semibold hidden">
         <div className="text-green-500 text-xl font-semibold py-1 px-3">
           <h1>Upcoming</h1>
         </div>
@@ -59,7 +59,7 @@ const Customers = () => {
           </div>
         )}
       </div>
-      <div className="xl:flex hidden">
+      <div className="lg:flex hidden">
         <div className=" border bg-white flex-1 ml-2 rounded-md">
           {loading ? (
             <div className="flex justify-center items-center my-6">
@@ -79,7 +79,7 @@ const Customers = () => {
         setIsFilter={setIsFilter}
         isFilter={isFilter}
       />
-      <div className="border p-4 xl:hidden block">
+      <div className="border p-4 lg:hidden block">
         {Bookings?.data?.map((users, index: number) => {
           return (
             <MobilTable

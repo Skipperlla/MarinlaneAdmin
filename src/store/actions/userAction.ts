@@ -1,12 +1,12 @@
 import api from "@lib/api";
 import { UserDispatch } from "types/user";
 interface IQuery {
-  lastSeen: string;
-  perPage: string;
-  hasOrdered: string;
-  hasNewsletter: string;
-  hasBooking: string;
-  perLimit: string;
+  lastSeen?: string | string[] | undefined;
+  perPage?: string | string[] | undefined;
+  hasOrdered?: string | string[] | undefined;
+  hasNewsletter?: string | string[] | undefined;
+  hasBooking?: string | string[] | undefined;
+  perLimit?: string | string[] | undefined;
 }
 export const getUser = (query: IQuery) => async (dispatch: UserDispatch) => {
   dispatch({ type: "GET_USERS_START" });

@@ -7,7 +7,7 @@ import { IMobilNav } from "types/customers";
 const MobilNav:React.FC<IMobilNav> = ({ setIsFilter, isFilter, router }) => {
   
   return (
-    <div className="p-4 xl:hidden block">
+    <div className="p-4 lg:hidden block">
       <div className="flex justify-between items-center">
         <div className="bg-gray-200 h-10 rounded-t-xl relative flex">
           <input

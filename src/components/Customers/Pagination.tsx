@@ -41,7 +41,7 @@ const Pagination: React.FC<{
     }),
   };
   return (
-    <div className="hidden xl:flex-1 xl:flex xl:items-center justify-end my-4 px-4">
+    <div className="hidden lg:flex-1 lg:flex lg:items-center justify-end my-4 px-4">
       <div className="mr-10">
         <p className="text-sm text-gray-700">
           Showing{" "}

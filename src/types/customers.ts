@@ -46,16 +46,3 @@ export interface IMobilCard {
   lastSeen: string;
   uuid: string;
 }
-export interface ISegment {
-  title: string;
-  elements: {
-    title: string;
-    values: [
-      {
-        label: string;
-        value: string;
-      }
-    ];
-  };
-  icon: ReactNode;
-}

@@ -3,8 +3,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import Link from "next/link";
 import { motion } from "framer-motion";
-
-const SidebarDropDown = ({ dropDownItems, header, icon }) => {
+interface IDropDownItems {
+  icon: string;
+  title: string;
+  target: string;
+}
+interface ISidebarDropDown {
+  dropDownItems: IDropDownItems[];
+  title: string;
+  icon: IconProp;
+}
+const SidebarDropDown: React.FC<ISidebarDropDown> = ({
+  dropDownItems,
+  title,
+  icon,
+}) => {
   const [isHover, toggleHover] = useState(false);
   const toggleHoverMenu = () => {
     toggleHover(!isHover);
@@ -45,7 +58,7 @@ const SidebarDropDown = ({ dropDownItems, header, icon }) => {
               className="text-primary-sideBarIconColor"
             />
           </span>
-          <span className="text-primary-sideBarIconColor">{header}</span>
+          <span className="text-primary-sideBarIconColor">{title}</span>
         </div>
         <div className="absolute right-1">
           <FontAwesomeIcon
@@ -58,7 +71,7 @@ const SidebarDropDown = ({ dropDownItems, header, icon }) => {
       </motion.div>
 
       <div className="pl-6 bg-transparent text-sm">
-        {dropDownItems.map((item, index) => {
+        {dropDownItems.map((item, index: number) => {
           return (
             <motion.div
               initial="exit"
@@ -68,18 +81,15 @@ const SidebarDropDown = ({ dropDownItems, header, icon }) => {
               onClick={() => toggleHover(false)}
             >
               <Link href={item.target} key={index}>
-                <a
-                  style={{ padding: "8px 30px 8px 15px" }}
-                  className="text-base flex items-center hover:bg-gray-200 rounded-md cursor-pointer transition-all"
-                >
-                  <span className="w-5 mr-1">
+                <a className="w-full py-2 px-4 text-base flex items-center hover:bg-gray-200 rounded-md cursor-pointer transition-all">
+                  <span className="w-5 mr-2">
                     <FontAwesomeIcon
                       icon={item.icon as IconProp}
                       className="text-primary-sideBarIconColor"
                     />
                   </span>
                   <span className="text-primary-sideBarIconColor">
-                    {item.label}
+                    {item.title}
                   </span>
                 </a>
               </Link>

@@ -5,17 +5,17 @@ import React, { ReactNode } from "react";
 interface ISingleBookingTable {
   color?: string;
   icon: string;
-  label: string;
+  title: string;
   value: string | number | undefined | ReactNode;
 }
-const SingleTable: React.FC<{ data: ISingleBookingTable[]; label: string }> = ({
+const SingleTable: React.FC<{ data: ISingleBookingTable[]; title: string }> = ({
   data,
-  label,
+  title,
 }) => {
   return (
     <div className="py-6">
       <div className="mb-2 pb-2">
-        <h1 className="text-xl">{label}</h1>
+        <h1 className="text-2xl ">{title}</h1>
       </div>
       {data.map((item, index) => {
         return (
@@ -26,15 +26,18 @@ const SingleTable: React.FC<{ data: ISingleBookingTable[]; label: string }> = ({
                 key={index}
               >
                 <div className="flex items-center justify-center">
-                  <span className="w-5 mr-1 text-gray-500">
-                    <FontAwesomeIcon icon={item.icon as IconProp} />
+                  <span className="w-5 mr-1 text-gray-400">
+                    <FontAwesomeIcon
+                      icon={item.icon as IconProp}
+                      className={`${item.color}`}
+                    />
                   </span>
                   <span
                     className={`text-base ${
-                      item.color ? item.color : "text-indigo-500"
+                      item.color ? item.color : "text-black"
                     }`}
                   >
-                    {item.label}
+                    {item.title}
                   </span>
                 </div>
                 <span>{item.value}</span>

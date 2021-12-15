@@ -26,7 +26,7 @@ const Customers = () => {
 
   return (
     <Main>
-      <div className="mb-4 w-full xl:flex justify-end items-center text-indigo-600 font-semibold hidden">
+      <div className="mb-4 w-full lg:flex justify-end items-center text-indigo-600 font-semibold hidden">
         <div
           onClick={(e) => {
             e.preventDefault();
@@ -52,7 +52,7 @@ const Customers = () => {
           )}
         </div>
       </div>
-      <div className="xl:flex hidden">
+      <div className="lg:flex hidden">
         <Filter router={router} isFilter={isFilter} />
         <div className=" border bg-white flex-1 ml-2 rounded-md">
           {loading ? (
@@ -75,7 +75,7 @@ const Customers = () => {
         setIsFilter={setIsFilter}
         isFilter={isFilter}
       />
-      <div className="border p-4 xl:hidden block">
+      <div className="border p-4 lg:hidden block">
         {Users?.data?.map((users, index: number) => {
           return (
             <MobilTable

@@ -7,7 +7,8 @@ import CurrencyFormat from "react-currency-format";
 import SingleTable from "@components/Booking/SingleTable";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ISingleBooking } from "types/booking";
-
+import Link from "next/link";
+import { useRouter } from "next/router";
 const SingleUser = (booking: { booking: ISingleBooking }) => {
   const {
     rides,
@@ -31,39 +32,39 @@ const SingleUser = (booking: { booking: ISingleBooking }) => {
   } = booking?.booking;
   const rotationDetails = [
     {
-      label: "Pickup",
+      title: "Pickup",
       value: pickup,
       color: "text-green-500",
       icon: "map-marker-alt",
     },
     {
-      label: "Drop Off",
+      title: "Drop Off",
       value: dropOff,
       color: "text-red-500",
       icon: "map-marker-alt",
     },
-    { label: "Date", value: Date, icon: "clock" },
-    { label: "Time", value: Time, icon: "hourglass" },
+    { title: "Date", value: Date, icon: "clock" },
+    { title: "Time", value: Time, icon: "hourglass" },
     {
-      label: "Vehicle Class",
+      title: "Vehicle Class",
       value: vehicleClass,
       color: "text-black",
       icon: "car",
     },
   ];
   const optionalDetails = [
-    { label: "Note", value: options, icon: "sticky-note" },
-    { label: "Booking Name", value: bookingName, icon: "bookmark" },
-    { label: "Stop", value: stop, icon: "coffee" },
+    { title: "Note", value: options, icon: "sticky-note" },
+    { title: "Booking Name", value: bookingName, icon: "bookmark" },
+    { title: "Stop", value: stop, icon: "coffee" },
     {
-      label: "This Booking Owner",
+      title: "This Booking Owner",
       value: `${owner.firstName} ${owner.lastName}`,
       icon: "user-secret",
     },
   ];
   const bookingDetails = [
     {
-      label: "Pickup Airport Check",
+      title: "Pickup Airport Check",
       value: pickupAirportCheck ? (
         <FontAwesomeIcon icon="check" className="text-green-500" />
       ) : (
@@ -73,7 +74,7 @@ const SingleUser = (booking: { booking: ISingleBooking }) => {
       icon: "plane",
     },
     {
-      label: "Drop Off Airport Check",
+      title: "Drop Off Airport Check",
       value: dropOffAirportCheck ? (
         <FontAwesomeIcon icon="check" className="text-green-500" />
       ) : (
@@ -83,10 +84,10 @@ const SingleUser = (booking: { booking: ISingleBooking }) => {
       icon: "plane",
     },
 
-    { label: "Duration", value: duration, icon: "road" },
-    { label: "Mi", value: `${mi} Mi`, icon: "road" },
+    { title: "Duration", value: duration, icon: "road" },
+    { title: "Mi", value: `${mi} Mi`, icon: "road" },
     {
-      label: "Minute",
+      title: "Minute",
       value:
         matrixMinute >= 60
           ? `${Math.floor(matrixMinute / 60)} Hr`
@@ -96,7 +97,7 @@ const SingleUser = (booking: { booking: ISingleBooking }) => {
   ];
   const PriceList = priceList.map((item: { title: string; pay: number }) => {
     return {
-      label: item.title,
+      title: item.title,
       icon:
         item.title == "Base fare"
           ? "ticket-alt"
@@ -109,12 +110,7 @@ const SingleUser = (booking: { booking: ISingleBooking }) => {
           : item.title == "Tools"
           ? "receipt"
           : "cart-arrow-down",
-      color:
-        item.title == "Total price under $100"
-          ? "text-yellow-500"
-          : item.title == "Tip"
-          ? "text-black"
-          : "",
+
       value: (
         <CurrencyFormat
           value={item.pay}
@@ -128,7 +124,7 @@ const SingleUser = (booking: { booking: ISingleBooking }) => {
   });
 
   PriceList.push({
-    label: "Total",
+    title: "Total",
     icon: "cash-register",
     value: (
       <CurrencyFormat
@@ -139,11 +135,16 @@ const SingleUser = (booking: { booking: ISingleBooking }) => {
         prefix={"$"}
       />
     ),
-    color: "text-black font-semibold",
   });
+  const router = useRouter();
 
   return (
     <Main>
+      <Link href={router.pathname.replace("/[id]", "")}>
+        <a className="flex items-center my-4 text-gray-400 text-xl">
+          <FontAwesomeIcon icon="arrow-left" />
+        </a>
+      </Link>
       <div className="border rounded-lg bg-white p-4">
         <div className="flex justify-between ">
           <div>
@@ -165,10 +166,10 @@ const SingleUser = (booking: { booking: ISingleBooking }) => {
             {rides}
           </h1>
         </div>
-        <SingleTable label={"Rotation Details"} data={rotationDetails} />
-        <SingleTable label={"Optional Details"} data={optionalDetails} />
-        <SingleTable label={"Booking Details"} data={bookingDetails} />
-        <SingleTable label={"Price Details"} data={PriceList} />
+        <SingleTable title={"Rotation Details"} data={rotationDetails} />
+        <SingleTable title={"Optional Details"} data={optionalDetails} />
+        <SingleTable title={"Booking Details"} data={bookingDetails} />
+        <SingleTable title={"Price Details"} data={PriceList} />
       </div>
     </Main>
   );

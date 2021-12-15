@@ -16,13 +16,13 @@ export interface ITable {
 const Table: React.FC<ITable> = ({ data, count, pagination }) => {
   const router = useRouter();
   const Titles = [
-    { label: "Date", color: "text-indigo-500" },
-    { label: "Time", color: "text-indigo-500" },
-    { label: "Status", color: "text-indigo-500" },
-    { label: "Minute", color: "text-indigo-500" },
-    { label: "Mi", color: "text-indigo-500" },
-    { label: "Total Price", color: "text-green-500" },
-    { label: "Created At", color: "text-indigo-500" },
+    { title: "Date" },
+    { title: "Time" },
+    { title: "Status" },
+    { title: "Minute" },
+    { title: "Mi" },
+    { title: "Total Price" },
+    { title: "Created At" },
   ];
 
   return (
@@ -32,8 +32,8 @@ const Table: React.FC<ITable> = ({ data, count, pagination }) => {
           <tr className="border-b">
             {Titles.map((item, index) => {
               return (
-                <th className={`py-2 px-4 ${item.color}`} key={index}>
-                  {item.label}
+                <th className="py-2 px-4" key={index}>
+                  {item.title}
                 </th>
               );
             })}
