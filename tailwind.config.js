@@ -15,7 +15,8 @@ module.exports = {
           bgOrange100: "#feecdc",
           linkHoverEffect: "rgba(0, 0, 0, 0.04)",
           sideBarIconColor: "rgba(0, 0, 0, 0.54)",
-          icon: "#686868"
+          icon: "#686868",
+          deleteButtonHover: "#F5DFDE",
         },
       },
       width: {},

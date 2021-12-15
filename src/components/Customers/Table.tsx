@@ -3,8 +3,10 @@ import React, { useState } from "react";
 import moment from "moment";
 import CurrencyFormat from "react-currency-format";
 import { IUser } from "types/user";
+import { useRouter } from "next/router";
 
 const Table: React.FC<{ data: IUser[] }> = ({ data }) => {
+  const router = useRouter();
   const Titles = [
     <input
       type="checkbox"
@@ -46,11 +48,15 @@ const Table: React.FC<{ data: IUser[] }> = ({ data }) => {
       <tbody>
         {data?.map((items, index: number) => {
           return (
-            <tr className="border-b" key={index}>
+            <tr
+              className="border-b hover:bg-gray-200 transition-all cursor-pointer"
+              key={index}
+              onClick={() => router.push(`/customers/${items._id}`)}
+            >
               <td className="text-center py-2 px-4">
                 <input
                   type="checkbox"
-                  checked={selected.includes(items._id) || false}
+                  checked={selected.includes(items._id)}
                   onClick={() => {
                     if (selected.includes(items._id)) {
                       setSelected(

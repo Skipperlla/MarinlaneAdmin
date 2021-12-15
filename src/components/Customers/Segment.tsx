@@ -41,60 +41,22 @@ const Segment: React.FC<ISegment> = ({ title, elements, icon }) => {
               }`}
               key={index}
               onClick={() => {
-                if (router.asPath.includes("?")) {
-                  if (
-                    Object.getOwnPropertyNames(router.query).includes(
-                      elements.title
-                    )
-                  ) {
-                    const newURL = router.asPath
-                      .replace(router.pathname.concat("?"), "")
-                      .split("&")
-                      [
-                        Object.getOwnPropertyNames(router.query).indexOf(
-                          elements.title
-                        )
-                      ].split("=");
-
-                    if (router.query[elements.title] == element.value) {
-                      if (router.asPath.includes("&")) {
-                        router.push(
-                          Object.getOwnPropertyNames(router.query).indexOf(
-                            elements.title
-                          ) == 0
-                            ? router.asPath.replace(
-                                `${newURL[0]}=${newURL[1]}&`,
-                                ""
-                              )
-                            : router.asPath.replace(
-                                `&${newURL[0]}=${newURL[1]}`,
-                                ""
-                              )
-                        );
-                      } else {
-                        router.push("/customers");
-                      }
-                    } else {
-                      router.push(
-                        router.asPath.replace(
-                          `${newURL[0]}=${newURL[1]}`,
-                          `${elements.title}=${element.value}`
-                        )
-                      );
-                    }
-                  } else {
-                    router.push(
-                      router.asPath.concat(
-                        `&${elements.title}=${element.value}`
-                      )
-                    );
-                  }
+                if (router.query[elements.title] == element.value) {
+                  const querys = { ...router.query };
+                  delete querys[elements.title];
+                  router.push({
+                    pathname: router.pathname,
+                    query: querys,
+                  });
                 } else {
-                  router.push(
-                    router.pathname.concat(
-                      `?${elements.title}=${element.value}`
-                    )
-                  );
+                  router.push({
+                    pathname: router.pathname,
+                    query: {
+                      ...router.query,
+                      [elements.title]: element.value,
+                      perPage: 1,
+                    },
+                  });
                 }
               }}
             >

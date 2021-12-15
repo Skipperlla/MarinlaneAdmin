@@ -19,36 +19,18 @@ const Filter: React.FC<IFilter> = ({ isFilter, router }) => {
       router.push("/customers");
   }, [isFilter]);
   const debounceTest = debounce((e) => {
-    if (router.asPath.includes("?")) {
-      if (Object.getOwnPropertyNames(router.query).includes("q")) {
-        const newURL = router.asPath
-          .replace(router.pathname.concat("?"), "")
-          .split("&")
-          [Object.getOwnPropertyNames(router.query).indexOf("q")].split("=");
-
-        if (e.target.value.length > 0) {
-          router.push(
-            router.asPath.replace(
-              `${newURL[0]}=${newURL[1]}`,
-              `q=${e.target.value}`
-            )
-          );
-        } else {
-          if (router.asPath.includes("&")) {
-            router.push(
-              Object.getOwnPropertyNames(router.query).indexOf("q") == 0
-                ? router.asPath.replace(`q=${newURL[1]}&`, "")
-                : router.asPath.replace(`&q=${newURL[1]}`, "")
-            );
-          } else {
-            router.push("/customers");
-          }
-        }
-      } else {
-        router.push(router.asPath.concat(`&q=${e.target.value}`));
-      }
+    if (e?.target?.value?.length > 0) {
+      router.push({
+        pathname: router.pathname,
+        query: { ...router.query, q: e.target.value },
+      });
     } else {
-      router.push(router.pathname.concat(`?q=${e.target.value}`));
+      const querys = { ...router.query };
+      delete querys["q"];
+      router.push({
+        pathname: router.pathname,
+        query: querys,
+      });
     }
   }, 1000);
   return (

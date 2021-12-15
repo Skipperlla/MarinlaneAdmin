@@ -13,12 +13,13 @@ const MobileCard: React.FC<IMobilTable> = ({
   totalSpent,
   totalBooking,
   lastSeen,
+  uuid,
 }) => {
   return (
     <div className="border rounded-xl mb-6">
       <div className="w-full flex justify-between items-center border-b p-4">
         <h1 className="text-xl">{fullName}</h1>
-        <Link href={`/customers/${12}`}>
+        <Link href={`/customers/${uuid}`}>
           <a className="text-indigo-500">
             <FontAwesomeIcon icon="eye" />
           </a>
