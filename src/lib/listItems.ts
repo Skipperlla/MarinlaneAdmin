@@ -48,29 +48,29 @@ export const hasNewsletter = {
 };
 export const Customers = [
   {
-    title: "Customers",
+    label: "Customers",
     target: "/customers",
     icon: "user-friends",
   },
   {
-    title: "Leader Board",
+    label: "Leader Board",
     target: "/leaderboard",
     icon: "trophy",
   },
 ];
 export const Bookings = [
   {
-    title: "Upcoming",
+    label: "Upcoming",
     target: "/booking/upcoming",
     icon: "calendar-check",
   },
   {
-    title: "Past",
+    label: "Past",
     target: "/booking/past",
     icon: "calendar-minus",
   },
   {
-    title: "Cancelled",
+    label: "Cancelled",
     target: "/booking/cancelled",
     icon: "calendar-times",
   },

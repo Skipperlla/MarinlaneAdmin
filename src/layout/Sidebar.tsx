@@ -62,7 +62,8 @@ const Sidebar: React.FC<ISidebar> = ({
             <span className="text-primary-sideBarIconColor">Dashboard</span>
           </a>
         </Link>
-        <SidebarDropDown />
+        <SidebarDropDown dropDownItems={Bookings} header={"Bookings"} />
+        <SidebarDropDown dropDownItems={Customers} header={"Customers"} />
       </div>
       {/* Sidebar */}
       <div
