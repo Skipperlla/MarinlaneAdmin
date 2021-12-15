@@ -2,13 +2,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import CurrencyFormat from "react-currency-format";
 import Link from "next/link";
-interface IMobilTable {
-  fullName: string;
-  totalSpent: number;
-  totalBooking: number;
-  lastSeen: string;
-}
-const MobileCard: React.FC<IMobilTable> = ({
+import { IMobilCard } from "types/customers";
+
+const MobileCard: React.FC<IMobilCard> = ({
   fullName,
   totalSpent,
   totalBooking,

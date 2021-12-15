@@ -2,12 +2,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import moment from "moment";
 import CurrencyFormat from "react-currency-format";
-import { IUser } from "types/user";
 import { useRouter } from "next/router";
 import { colorFilter } from "@lib/listItems";
 import Pagination from "@components/Customers/Pagination";
+import { IBooking } from "types/booking";
+import { IPagination } from "types/user";
 
-const Table: React.FC<{ data: IUser[] }> = ({ data, count, pagination }) => {
+export interface ITable {
+  data: IBooking[];
+  count: number;
+  pagination: IPagination;
+}
+const Table: React.FC<ITable> = ({ data, count, pagination }) => {
   const router = useRouter();
   const Titles = [
     { label: "Date", color: "text-indigo-500" },

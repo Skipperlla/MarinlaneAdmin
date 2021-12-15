@@ -6,8 +6,9 @@ import CurrencyFormat from "react-currency-format";
 
 import SingleTable from "@components/Booking/SingleTable";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ISingleBooking } from "types/booking";
 
-const SingleUser = (booking) => {
+const SingleUser = (booking: { booking: ISingleBooking }) => {
   const {
     rides,
     status,
@@ -128,6 +129,7 @@ const SingleUser = (booking) => {
 
   PriceList.push({
     label: "Total",
+    icon: "cash-register",
     value: (
       <CurrencyFormat
         value={totalPrice}

@@ -1,45 +1,33 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
+import React from "react";
 import moment from "moment";
 import CurrencyFormat from "react-currency-format";
-import { IUser } from "types/user";
 import { useRouter } from "next/router";
 
-const Table: React.FC<{ data: IUser[] }> = ({ data }) => {
+import { ICustomers } from "types/user";
+
+const Table: React.FC<{ data: ICustomers[] }> = ({ data }) => {
   const router = useRouter();
   const Titles = [
-    <input
-      type="checkbox"
-      onClick={() => {
-        data.forEach((items) => {
-          if (selected.includes(items._id)) {
-            setSelected([]);
-          } else {
-            setSelected((prev) => [...prev, items._id]);
-          }
-        });
-      }}
-    />,
-    "Customer",
-    "Last Seen",
-    "Bookings",
-    "Total Spent",
-    "Last Booking Creating",
-    "New User",
-    "Title",
-    "Blocked",
-    "News.",
+    { label: "Customer" },
+    { label: "Last Seen" },
+    { label: "Bookings" },
+    { label: "Total Spent", color: "text-green-500" },
+    { label: "Last Booking Creating" },
+    { label: "New User" },
+    { label: "Title" },
+    { label: "Blocked" },
+    { label: "News" },
   ];
-  const [selected, setSelected] = useState<string[]>([]);
 
   return (
     <table className="table-auto w-full h-auto">
       <thead>
         <tr className="border-b">
-          {Titles.map((title, index) => {
+          {Titles.map((item, index) => {
             return (
-              <th className="py-2 px-4" key={index}>
-                {title}
+              <th className={`py-2 px-4 ${item.color}`} key={index}>
+                {item.label}
               </th>
             );
           })}
@@ -54,21 +42,8 @@ const Table: React.FC<{ data: IUser[] }> = ({ data }) => {
               onClick={() => router.push(`/customers/${items._id}`)}
             >
               <td className="text-center py-2 px-4">
-                <input
-                  type="checkbox"
-                  checked={selected.includes(items._id)}
-                  onClick={() => {
-                    if (selected.includes(items._id)) {
-                      setSelected(
-                        selected.filter((item) => item !== items._id)
-                      );
-                    } else {
-                      setSelected([...selected, items._id]);
-                    }
-                  }}
-                />
+                {items.firstName}&nbsp;{items.lastName}
               </td>
-              <td className="text-center py-2 px-4">{items.fullName}</td>
               <td className="text-center py-2 px-4">23.11.12</td>
               <td className="text-center py-2 px-4">{items.totalBooking}</td>
               <td
@@ -86,9 +61,9 @@ const Table: React.FC<{ data: IUser[] }> = ({ data }) => {
               <td className="text-center py-2 px-4">
                 {items.bookings[0]?.createdAt ? (
                   <>
-                    {moment(items.bookings[0]?.createdAt).format(
-                      "MMMM Do YYYY, h:mm:ss a"
-                    )}
+                    {moment(items.bookings[0]?.createdAt)
+                      .startOf("hour")
+                      .fromNow()}
                   </>
                 ) : (
                   <span>Not yet created</span>

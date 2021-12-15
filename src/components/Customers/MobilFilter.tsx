@@ -2,8 +2,10 @@ import ReactSelect from "@components/ReactSelect";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { lastSeen, hasBooking, hasNewsletter } from "@lib/listItems";
 import React from "react";
+import { IMobilNav } from "types/customers";
 
-const MobilNav = ({ setIsFilter, isFilter, router }) => {
+const MobilNav:React.FC<IMobilNav> = ({ setIsFilter, isFilter, router }) => {
+  
   return (
     <div className="p-4 xl:hidden block">
       <div className="flex justify-between items-center">

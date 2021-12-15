@@ -3,15 +3,16 @@ import { NextRouter } from "next/router";
 import React, { useState } from "react";
 import Paginate from "react-paginate";
 import Select, { SingleValue } from "react-select";
+import { IPagination } from "types/user";
 interface IOptions {
   label: number;
   value: number;
 }
-const Pagination: React.FC<{ count: number; router: NextRouter }> = ({
-  count,
-  router,
-  pagination,
-}) => {
+const Pagination: React.FC<{
+  count: number;
+  router: NextRouter;
+  pagination: IPagination;
+}> = ({ count, router, pagination }) => {
   const options: IOptions[] = [
     { label: 5, value: 5 },
     { label: 15, value: 15 },
@@ -58,7 +59,7 @@ const Pagination: React.FC<{ count: number; router: NextRouter }> = ({
           menuPlacement="auto"
           value={options.find((o) => o.value === limit) || defaultValue}
           isSearchable={false}
-          onChange={(e: SingleValue<IOptions>) => {
+          onChange={(e: any) => {
             router.push({
               pathname: router.pathname,
               query: { ...router.query, perLimit: e.value, perPage: 1 },

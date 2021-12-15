@@ -28,30 +28,34 @@ const Customers = () => {
         <div className="text-gray-500 text-xl font-semibold py-1 px-3">
           <h1>Past</h1>
         </div>
-        <div
-          onClick={(e) => {
-            e.preventDefault();
-            setIsLoading(true);
-            api()
-              .get("/Admin/User/exportExcelUser", { responseType: "blob" })
-              .then((data) => {
-                fileDownload(data.data, "customers.xlsx");
-                setIsLoading(false);
-              });
-          }}
-          className="cursor-pointer flex items-center justify-center hover:bg-indigo-300 py-1 px-3 rounded-xl transition-all"
-        >
-          {isLoading ? (
-            <Spinner type="TailSpin" w={20} h={20} />
-          ) : (
-            <>
-              <button className="mr-2">
-                <FontAwesomeIcon icon="download" className="text-xl" />
-              </button>
-              <h1>EXPORT</h1>
-            </>
-          )}
-        </div>
+        {loading ? (
+          <Spinner type="TailSpin" w={20} h={20} />
+        ) : (
+          <div
+            onClick={(e) => {
+              e.preventDefault();
+              setIsLoading(true);
+              api()
+                .get("/Admin/Booking/exportPastExcel", { responseType: "blob" })
+                .then((data) => {
+                  fileDownload(data.data, "bookings_past.xlsx");
+                  setIsLoading(false);
+                });
+            }}
+            className="cursor-pointer flex items-center justify-center hover:bg-indigo-300 py-1 px-3 rounded-xl transition-all"
+          >
+            {isLoading ? (
+              <Spinner type="TailSpin" w={20} h={20} />
+            ) : (
+              <>
+                <button className="mr-2">
+                  <FontAwesomeIcon icon="download" className="text-xl" />
+                </button>
+                <h1>EXPORT</h1>
+              </>
+            )}
+          </div>
+        )}
       </div>
       <div className="xl:flex hidden">
         <div className=" border bg-white flex-1 ml-2 rounded-md">

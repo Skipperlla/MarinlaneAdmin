@@ -1,8 +1,8 @@
-import { IUser, UserAction, UserState } from "types/user";
+import { UserAction, UserState, ICustomers } from "types/user";
 
 const defaultState: UserState = {
-  Users: [],
-  User: {} as IUser,
+  Users: {},
+  User: {} as ICustomers,
   loading: false,
   error: "",
   success: "",
@@ -18,7 +18,6 @@ const userReducer = (state = defaultState, action: UserAction) => {
         ...state,
         loading: false,
         Users: action.payload,
-        success: action.success,
         status: action.status,
       };
     case "GET_USER_ERROR":

@@ -3,8 +3,9 @@ import Main from "@layout/Main";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import CurrencyFormat from "react-currency-format";
+import { ISingleUser } from "types/customers";
 
-const SingleUser = (user) => {
+const SingleUser = (user: { user: ISingleUser }) => {
   const [isLoading, setIsLoading] = React.useState(true);
   const router = useRouter();
   useEffect(() => {

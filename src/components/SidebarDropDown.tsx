@@ -4,7 +4,7 @@ import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-const SidebarDropDown = ({ dropDownItems, header }) => {
+const SidebarDropDown = ({ dropDownItems, header, icon }) => {
   const [isHover, toggleHover] = useState(false);
   const toggleHoverMenu = () => {
     toggleHover(!isHover);
@@ -33,29 +33,29 @@ const SidebarDropDown = ({ dropDownItems, header }) => {
   };
   return (
     <>
-      <div
-        className="relative flex rounded-md cursor-pointer items-center mb-4 hover:bg-gray-200 transition-all mx-auto justify-between"
+      <motion.div
+        onClick={toggleHoverMenu}
+        className="relative flex rounded-md cursor-pointer items-center  hover:bg-gray-200 transition-all mx-auto justify-between"
         style={{ padding: "8px 35px 8px 20px" }}
       >
-        <motion.div
-          onClick={toggleHoverMenu}
-          className="text-base flex items-center justify-center"
-        >
+        <div className="text-base flex items-center justify-center">
           <span className="w-5 mr-2">
             <FontAwesomeIcon
-              icon="th-large"
+              icon={icon as IconProp}
               className="text-primary-sideBarIconColor"
             />
           </span>
           <span className="text-primary-sideBarIconColor">{header}</span>
-        </motion.div>
+        </div>
         <div className="absolute right-1">
           <FontAwesomeIcon
             icon="chevron-down"
-            className="text-sm text-gray-400"
+            className={`text-sm text-gray-400 transition-all transform ${
+              isHover && "rotate-180"
+            }`}
           />
         </div>
-      </div>
+      </motion.div>
 
       <div className="pl-6 bg-transparent text-sm">
         {dropDownItems.map((item, index) => {
@@ -64,6 +64,8 @@ const SidebarDropDown = ({ dropDownItems, header }) => {
               initial="exit"
               animate={isHover ? "enter" : "exit"}
               variants={subMenuAnimate}
+              className="w-full"
+              onClick={() => toggleHover(false)}
             >
               <Link href={item.target} key={index}>
                 <a

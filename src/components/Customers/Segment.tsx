@@ -1,21 +1,9 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import { ISegment } from "types/customers";
 
-interface ISegment {
-  title: string;
-  elements: IElements;
-  icon: ReactNode;
-}
-interface IValues {
-  label: string;
-  value: string;
-}
-interface IElements {
-  title: string;
-  values: IValues[];
-}
 const Segment: React.FC<ISegment> = ({ title, elements, icon }) => {
   const router = useRouter();
 

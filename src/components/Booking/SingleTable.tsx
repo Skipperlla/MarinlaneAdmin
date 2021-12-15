@@ -1,9 +1,17 @@
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { colorFilter } from "@lib/listItems";
-import React from "react";
 
-const SingleTable = ({ data, label }) => {
+import React, { ReactNode } from "react";
+interface ISingleBookingTable {
+  color?: string;
+  icon: string;
+  label: string;
+  value: string | number | undefined | ReactNode;
+}
+const SingleTable: React.FC<{ data: ISingleBookingTable[]; label: string }> = ({
+  data,
+  label,
+}) => {
   return (
     <div className="py-6">
       <div className="mb-2 pb-2">
