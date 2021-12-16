@@ -10,7 +10,7 @@ import { ISingleBooking } from "types/booking";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import withAuth from "utils/lib/withAuth";
-const SingleUser = (booking: { booking: ISingleBooking }) => {
+const SingleBooking = (booking: { booking: ISingleBooking }) => {
   const {
     rides,
     status,
@@ -179,7 +179,11 @@ export const getServerSideProps = async (context: {
   req: { headers: { cookie: string } };
 }) => {
   const response = await fetch(
-    `http://localhost:5000/api/v1/Admin/Booking/singleBooking/${context.params.id}`,
+    `${
+      process.env.NODE_ENV == "development"
+        ? "http://localhost:5000"
+        : "https://marinlane.herokuapp.com"
+    }/api/v1/Admin/Booking/singleBooking/${context.params.id}`,
     {
       headers: {
         Authorization: `Bearer: ${
@@ -193,4 +197,4 @@ export const getServerSideProps = async (context: {
 
   return { props: { booking: booking.data } };
 };
-export default withAuth(SingleUser);
+export default withAuth(SingleBooking);

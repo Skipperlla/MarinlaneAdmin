@@ -16,7 +16,7 @@ import { Error } from "utils/lib/messages";
 import { useAuth } from "utils/contexts/useAuth";
 import MobilBooking from "@components/Booking/MobilBooking";
 import { IBooking } from "types/booking";
-const Customers = () => {
+const Upcoming = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const { Bookings, loading } = useSelector((state: AppState) => state.booking);
@@ -167,4 +167,4 @@ const Customers = () => {
   );
 };
 
-export default withAuth(Customers);
+export default withAuth(Upcoming);

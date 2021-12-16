@@ -159,7 +159,11 @@ export const getServerSideProps = async (context: {
   req: { headers: { cookie: string } };
 }) => {
   const response = await fetch(
-    `http://localhost:5000/api/v1/Admin/User/singleUser/${context.params.id}`,
+    `${
+      process.env.NODE_ENV == "development"
+        ? "http://localhost:5000"
+        : "https://marinlane.herokuapp.com"
+    }/api/v1/Admin/User/singleUser/${context.params.id}`,
     {
       headers: {
         Authorization: `Bearer: ${
