@@ -100,47 +100,49 @@ const index = () => {
                     />
                   );
                 })}
-                <div className="flex items-center justify-end">
-                  {Number(Users?.pagination?.next?.page) !== 2 && (
-                    <button
-                      className="text-xl mr-4"
-                      onClick={() => {
-                        router.push({
-                          pathname: router.pathname,
-                          query: {
-                            ...router.query,
-                            perPage: router.query.perPage
-                              ? Number(router?.query?.perPage) - 1
-                              : 1,
-                          },
-                        });
-                      }}
-                    >
-                      <FontAwesomeIcon icon="chevron-left" />
-                    </button>
-                  )}
-                  {Users?.pagination?.next?.page && (
-                    <button
-                      className="text-xl"
-                      onClick={() => {
-                        router.push({
-                          pathname: router.pathname,
-                          query: {
-                            ...router.query,
-                            perPage: router.query.perPage
-                              ? Number(router?.query?.perPage) + 1
-                              : 1,
-                          },
-                        });
-                      }}
-                    >
-                      <FontAwesomeIcon icon="chevron-right" />
-                    </button>
-                  )}
-                </div>
+                {!Users?.pagination !== undefined && (
+                  <div className="flex items-center justify-end">
+                    {Number(Users?.pagination?.next?.page) !== 2 && (
+                      <button
+                        className="text-xl mr-4"
+                        onClick={() => {
+                          router.push({
+                            pathname: router.pathname,
+                            query: {
+                              ...router.query,
+                              perPage: router.query.perPage
+                                ? Number(router?.query?.perPage) - 1
+                                : 1,
+                            },
+                          });
+                        }}
+                      >
+                        <FontAwesomeIcon icon="chevron-left" />
+                      </button>
+                    )}
+                    {Users?.pagination?.next?.page && (
+                      <button
+                        className="text-xl"
+                        onClick={() => {
+                          router.push({
+                            pathname: router.pathname,
+                            query: {
+                              ...router.query,
+                              perPage: router.query.perPage
+                                ? Number(router?.query?.perPage) + 1
+                                : 2,
+                            },
+                          });
+                        }}
+                      >
+                        <FontAwesomeIcon icon="chevron-right" />
+                      </button>
+                    )}
+                  </div>
+                )}
               </>
             ) : (
-              <div className="flex-1 items-center justify-center flex">
+              <div className="flex-1 items-center justify-center flex text-xl">
                 No Result Found
               </div>
             )}

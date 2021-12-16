@@ -12,11 +12,13 @@ interface ISidebarDropDown {
   dropDownItems: IDropDownItems[];
   title: string;
   icon: IconProp;
+  handleClick: any;
 }
 const SidebarDropDown: React.FC<ISidebarDropDown> = ({
   dropDownItems,
   title,
   icon,
+  handleClick,
 }) => {
   const [isHover, toggleHover] = useState(false);
   const toggleHoverMenu = () => {
@@ -51,8 +53,8 @@ const SidebarDropDown: React.FC<ISidebarDropDown> = ({
         className="relative flex rounded-md cursor-pointer items-center  hover:bg-gray-200 transition-all mx-auto justify-between"
         style={{ padding: "8px 35px 8px 20px" }}
       >
-        <div className="text-base flex items-center justify-center">
-          <span className="w-5 mr-2">
+        <div className="text-2xl lg:text-base flex items-center justify-center">
+          <span className="w-5 lg:mr-2 mr-5">
             <FontAwesomeIcon
               icon={icon as IconProp}
               className="text-primary-sideBarIconColor"
@@ -63,14 +65,14 @@ const SidebarDropDown: React.FC<ISidebarDropDown> = ({
         <div className="absolute right-1">
           <FontAwesomeIcon
             icon="chevron-down"
-            className={`text-sm text-gray-400 transition-all transform ${
+            className={`lg:text-sm text-xl text-gray-400 transition-all transform ${
               isHover && "rotate-180"
             }`}
           />
         </div>
       </motion.div>
 
-      <div className="pl-6 bg-transparent text-sm">
+      <div className="pl-6 bg-transparent">
         {dropDownItems.map((item, index: number) => {
           return (
             <motion.div
@@ -82,7 +84,10 @@ const SidebarDropDown: React.FC<ISidebarDropDown> = ({
               key={index}
             >
               <Link href={item.target}>
-                <a className="w-full py-2 px-4 text-base flex items-center hover:bg-gray-200 rounded-md cursor-pointer transition-all">
+                <a
+                  onClick={handleClick}
+                  className="w-full py-2 px-4 lg:text-base text-xl flex items-center hover:bg-gray-200 rounded-md cursor-pointer transition-all"
+                >
                   <span className="w-5 mr-2">
                     <FontAwesomeIcon
                       icon={item.icon as IconProp}

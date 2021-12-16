@@ -15,7 +15,10 @@ const Sidebar: React.FC<ISidebar> = ({ isSidebarOpen, setIsSidebarOpen }) => {
   }
   const router = useRouter();
   function handleClick(e: React.MouseEvent<HTMLAnchorElement>) {
-    if (router.pathname == e.currentTarget.pathname) e.preventDefault();
+    if (router.pathname === e.currentTarget.pathname) {
+      e.preventDefault();
+    }
+    setIsSidebarOpen(false);
   }
   return (
     <React.Fragment>
@@ -53,11 +56,13 @@ const Sidebar: React.FC<ISidebar> = ({ isSidebarOpen, setIsSidebarOpen }) => {
           dropDownItems={Bookings}
           title={"Bookings"}
           icon={"calendar-alt"}
+          handleClick={handleClick}
         />
         <SidebarDropDown
           dropDownItems={Customers}
           title={"Customers"}
           icon={"users"}
+          handleClick={handleClick}
         />
       </div>
       {/* Sidebar */}
@@ -70,7 +75,39 @@ const Sidebar: React.FC<ISidebar> = ({ isSidebarOpen, setIsSidebarOpen }) => {
           <div className=" mt-2 ml-3 cursor-pointer" onClick={closeSidebar}>
             <FontAwesomeIcon icon="times" className="text-xl" />
           </div>
-          s
+          <div
+            style={{
+              padding: "10px",
+            }}
+          >
+            <Link href={"/"}>
+              <a
+                onClick={handleClick}
+                className="flex rounded-md cursor-pointer items-center hover:bg-gray-200 transition-all text-2xl"
+                style={{ padding: "8px 35px 8px 20px" }}
+              >
+                <span className="w-5 mr-5">
+                  <FontAwesomeIcon
+                    icon="th-large"
+                    className="text-primary-sideBarIconColor"
+                  />
+                </span>
+                <span className="text-primary-sideBarIconColor">Dashboard</span>
+              </a>
+            </Link>
+            <SidebarDropDown
+              dropDownItems={Bookings}
+              title={"Bookings"}
+              icon={"calendar-alt"}
+              handleClick={handleClick}
+            />
+            <SidebarDropDown
+              dropDownItems={Customers}
+              title={"Customers"}
+              icon={"users"}
+              handleClick={handleClick}
+            />
+          </div>
         </div>
       </div>
     </React.Fragment>

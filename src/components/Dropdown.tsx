@@ -2,16 +2,16 @@ import { Menu, Transition } from "@headlessui/react";
 import { Fragment, SVGProps, useEffect, useState } from "react";
 import Avatar from "../../public/avatar.png";
 import Image from "next/image";
-import Link from "next/link";
 import Cookies from "js-cookie";
-import axios from "axios";
 import { useRouter } from "next/router";
 import api from "utils/lib/api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Dropdown = () => {
   const [isHover, settoggleHover] = useState(false);
-  const [me, setMe] = useState(null);
+  const [me, setMe] = useState<{ firstName: string; lastName: string } | null>(
+    null
+  );
 
   const toggleHoverMenu = () => {
     if (isHover) settoggleHover(!isHover);
@@ -74,10 +74,7 @@ const Dropdown = () => {
                     localStorage.clear();
                     router.push("/login");
                   })
-                  .catch((err) => {
-                    console.log(err.response);
-                    if (err?.response?.status === 429) "error";
-                  });
+                  .catch((err) => {});
               }}
             >
               <button
