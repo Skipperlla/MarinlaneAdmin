@@ -24,7 +24,7 @@ const index = () => {
   useEffect(() => {
     if (router.isReady) dispatch(getUser(router.query));
   }, [router.isReady, router.query]);
-
+  console.log(Users?.pagination);
   return (
     <Main>
       <div className="mb-4 w-full lg:flex justify-end items-center text-indigo-600 font-semibold hidden">
@@ -100,7 +100,7 @@ const index = () => {
                     />
                   );
                 })}
-                {!Users?.pagination !== undefined && (
+                {Object.getOwnPropertyNames(Users?.pagination).length > 0 && (
                   <div className="flex items-center justify-end">
                     {Number(Users?.pagination?.next?.page) !== 2 && (
                       <button

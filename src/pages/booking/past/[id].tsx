@@ -151,7 +151,7 @@ const SingleBooking = (booking: { booking: ISingleBooking }) => {
           <div>
             <h1 className="inline-block text-xl">Status:</h1>
             &nbsp;&nbsp;
-            <span className={`text-base ${colorFilter(status)[0].color}`}>
+            <span className={`text-base ${colorFilter(status)[0]?.color}`}>
               {status.charAt(0).toUpperCase() + status.slice(1)}
             </span>
           </div>

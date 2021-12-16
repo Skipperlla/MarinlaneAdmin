@@ -1,4 +1,3 @@
-import MobilTable from "@components/Customers/MobilCustomers";
 import Table from "@components/Booking/Table";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Main from "@layout/Main";
@@ -116,7 +115,8 @@ const index = () => {
                     />
                   );
                 })}
-                {!Bookings?.pagination !== undefined && (
+                {Object.getOwnPropertyNames(Bookings?.pagination).length >
+                  0 && (
                   <div className="flex items-center justify-end">
                     {Number(Bookings?.pagination?.next?.page) !== 2 && (
                       <button

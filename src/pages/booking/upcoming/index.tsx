@@ -114,7 +114,7 @@ const index = () => {
                     />
                   );
                 })}
-                {!Bookings?.pagination !== undefined && (
+                {Object.getOwnPropertyNames(Bookings?.pagination).length > 0 && (
                   <div className="flex items-center justify-end">
                     {Number(Bookings?.pagination?.next?.page) !== 2 && (
                       <button
