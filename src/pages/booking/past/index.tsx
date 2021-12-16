@@ -1,4 +1,3 @@
-import MobilTable from "@components/Customers/MobilCustomers";
 import Table from "@components/Booking/Table";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Main from "@layout/Main";
@@ -23,10 +22,10 @@ const index = () => {
   const { Bookings, loading } = useSelector((state: AppState) => state.booking);
   const [isFilter, setIsFilter] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { setIsShow } = useAuth();
   useEffect(() => {
     if (router.isReady) dispatch(Pasts(router.query));
   }, [router.isReady, router.query]);
-  const { setIsShow } = useAuth();
 
   return (
     <Main>

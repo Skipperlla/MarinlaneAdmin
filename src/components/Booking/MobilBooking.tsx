@@ -21,7 +21,7 @@ const MobilBooking: React.FC<IMobilBooking> = ({
     <div className="border rounded-xl mb-6">
       <div className="w-full flex justify-between items-center border-b p-4">
         <div className="flex items-center ">
-          <h1 className={`text-xl h-full ${colorFilter(status)[0].color}`}>
+          <h1 className={`text-xl h-full ${colorFilter(status)[0]?.color}`}>
             {status.charAt(0).toUpperCase() + status.slice(1)}
           </h1>
         </div>
