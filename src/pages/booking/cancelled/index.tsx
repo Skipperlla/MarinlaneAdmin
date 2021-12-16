@@ -17,7 +17,7 @@ import { useAuth } from "utils/contexts/useAuth";
 import { Error } from "utils/lib/messages";
 import MobilBooking from "@components/Booking/MobilBooking";
 import { IBooking } from "types/booking";
-const Cancelled = () => {
+const index = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const { Bookings, loading } = useSelector((state: AppState) => state.booking);
@@ -169,4 +169,4 @@ const Cancelled = () => {
   );
 };
 
-export default withAuth(Cancelled);
+export default withAuth(index);

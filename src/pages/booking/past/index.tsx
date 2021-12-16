@@ -17,7 +17,7 @@ import { useAuth } from "utils/contexts/useAuth";
 import { Error } from "utils/lib/messages";
 import MobilBooking from "@components/Booking/MobilBooking";
 import { IBooking } from "types/booking";
-const Past = () => {
+const index = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const { Bookings, loading } = useSelector((state: AppState) => state.booking);
@@ -169,4 +169,4 @@ const Past = () => {
   );
 };
 
-export default withAuth(Past);
+export default withAuth(index);
