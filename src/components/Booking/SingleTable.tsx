@@ -40,7 +40,7 @@ const SingleTable: React.FC<{ data: ISingleBookingTable[]; title: string }> = ({
                     {item.title}
                   </span>
                 </div>
-                <span>{item.value}</span>
+                <span className="truncate">{item.value}</span>
               </div>
             ) : null}
           </section>

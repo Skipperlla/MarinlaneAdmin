@@ -1,4 +1,4 @@
-import api from "@lib/api";
+import api from "utils/lib/api";
 import { BookingDispatch } from "types/booking";
 
 export const Upcomings = (query: {}) => async (dispatch: BookingDispatch) => {

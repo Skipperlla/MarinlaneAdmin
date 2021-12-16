@@ -1,8 +1,13 @@
-import { BookingAction, BookingState } from "types/booking";
+import {
+  BookingAction,
+  BookingState,
+  IBookings,
+  ISingleBooking,
+} from "types/booking";
 
 const defaultState: BookingState = {
-  Bookings: [],
-  Booking: {},
+  Bookings: {} as IBookings,
+  Booking: {} as ISingleBooking,
   loading: false,
   error: "",
   status: null,
@@ -15,7 +20,7 @@ const bookingReducer = (state = defaultState, action: BookingAction) => {
       return {
         ...state,
         loading: true,
-        isLoading: false,
+
         error: "",
         status: null,
         success: "",
@@ -39,7 +44,7 @@ const bookingReducer = (state = defaultState, action: BookingAction) => {
       return {
         ...state,
         loading: false,
-        isLoading: false,
+
         error: "",
         status: null,
         success: "",

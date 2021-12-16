@@ -7,6 +7,10 @@ module.exports = {
   darkMode: "class", // or 'media' or 'class'
   theme: {
     extend: {
+      backgroundImage: {
+        "hero-pattern":
+          "url('https://besthqwallpapers.com/Uploads/29-3-2018/46373/thumb2-max-verstappen-4k-raceway-2018-cars-f1.jpg')",
+      },
       colors: {
         primary: {
           borderColor: "#dbdbdb",

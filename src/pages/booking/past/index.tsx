@@ -1,4 +1,4 @@
-import MobilTable from "@components/Customers/MobilTable";
+import MobilTable from "@components/Customers/MobilCustomers";
 import Table from "@components/Booking/Table";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Main from "@layout/Main";
@@ -9,9 +9,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "store";
 import MobilFilter from "@components/Customers/MobilFilter";
 import Spinner from "@components/Spinner";
-import api from "@lib/api";
+import api from "utils/lib/api";
 import fileDownload from "js-file-download";
 import { Pasts } from "store/actions/bookingAction";
+import withAuth from "utils/lib/withAuth";
+import { useAuth } from "utils/contexts/useAuth";
+import { Error } from "utils/lib/messages";
 const Customers = () => {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -21,6 +24,7 @@ const Customers = () => {
   useEffect(() => {
     if (router.isReady) dispatch(Pasts(router.query));
   }, [router.isReady, router.query]);
+  const { setIsShow } = useAuth();
 
   return (
     <Main>
@@ -35,12 +39,23 @@ const Customers = () => {
             onClick={(e) => {
               e.preventDefault();
               setIsLoading(true);
-              api()
-                .get("/Admin/Booking/exportPastExcel", { responseType: "blob" })
-                .then((data) => {
-                  fileDownload(data.data, "bookings_past.xlsx");
-                  setIsLoading(false);
-                });
+              if (Bookings?.count > 0) {
+                api()
+                  .get("/Admin/Booking/exportPastExcel", {
+                    responseType: "blob",
+                  })
+                  .then((data) => {
+                    fileDownload(data.data, "bookings_past.xlsx");
+                    setIsLoading(false);
+                  })
+                  .catch(() => setIsLoading(false));
+              } else {
+                Error(
+                  "You must have at least 1 piece of data to get the excel output."
+                );
+                setIsShow(true);
+                setIsLoading(false);
+              }
             }}
             className="cursor-pointer flex items-center justify-center hover:bg-indigo-300 py-1 px-3 rounded-xl transition-all"
           >
@@ -77,21 +92,8 @@ const Customers = () => {
         setIsFilter={setIsFilter}
         isFilter={isFilter}
       />
-      <div className="border p-4 lg:hidden block">
-        {Bookings?.data?.map((users, index: number) => {
-          return (
-            <MobilTable
-              key={index}
-              fullName={users.fullName}
-              totalSpent={users.totalSpending}
-              totalBooking={users.totalBooking}
-              lastSeen={"21.12.2021"}
-            />
-          );
-        })}
-      </div>
     </Main>
   );
 };
 
-export default Customers;
+export default withAuth(Customers);

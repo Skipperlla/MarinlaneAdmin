@@ -2,7 +2,7 @@ import React from "react";
 import "react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Bookings, Customers } from "@lib/listItems";
+import { Bookings, Customers } from "utils/lib/listItems";
 import { useRouter } from "next/router";
 import SidebarDropDown from "@components/SidebarDropDown";
 interface ISidebar {

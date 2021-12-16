@@ -1,36 +1,29 @@
 import { Menu, Transition } from "@headlessui/react";
-import { Fragment, SVGProps, useEffect, useRef, useState } from "react";
+import { Fragment, SVGProps, useEffect, useState } from "react";
 import Avatar from "../../public/avatar.png";
 import Image from "next/image";
 import Link from "next/link";
+import Cookies from "js-cookie";
+import axios from "axios";
+import { useRouter } from "next/router";
+import api from "utils/lib/api";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Dropdown = () => {
   const [isHover, settoggleHover] = useState(false);
+  const [me, setMe] = useState(null);
+
   const toggleHoverMenu = () => {
     if (isHover) settoggleHover(!isHover);
   };
+  const router = useRouter();
 
-  const subMenuAnimate = {
-    enter: {
-      opacity: 1,
-      rotateX: 0,
-      transition: {
-        duration: 0.3,
-      },
-      display: "block",
-    },
-    exit: {
-      opacity: 0,
-      rotateX: -15,
-      transition: {
-        duration: 0.3,
-        delay: 0.3,
-      },
-      transitionEnd: {
-        display: "none",
-      },
-    },
-  };
+  useEffect(() => {
+    router.prefetch("/");
+  }, []);
+  useEffect(() => {
+    setMe(JSON.parse(localStorage.getItem("me") || "{}"));
+  }, []);
 
   return (
     <div className="flex h-full items-center z-20">
@@ -47,7 +40,7 @@ const Dropdown = () => {
             className="ml-2 font-semibold text-primary-linkColor"
             onClick={toggleHoverMenu}
           >
-            Ömer Esmer
+            {me?.firstName}&nbsp;{me?.lastName}
           </span>
         </Menu.Button>
         <Transition
@@ -60,24 +53,43 @@ const Dropdown = () => {
           leaveTo="transform opacity-0 scale-95"
         >
           <Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-white divide-y divide-gray-100 rounded-xl shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-            <div className="flex flex-col justify-center ">
-              <Link href="/">
+            {/* <Link href="/">
                 <a className="py-2 px-4 flex items-center hover:bg-primary-hoverColorDropdown">
                   <Settings className="mr-2 w-5 h-5 " />
                   <span className="text-primary-linkColor font-semibold">
                     Configuration
                   </span>
                 </a>
-              </Link>
-              <Link href="/">
-                <a className="py-2 px-4 flex items-center hover:bg-primary-hoverColorDropdown">
-                  <LogOut className="mr-2 w-5 h-5" />
-                  <span className="text-primary-linkColor font-semibold">
-                    Logout
-                  </span>
-                </a>
-              </Link>
-            </div>
+              </Link> */}
+
+            <form
+              method="POST"
+              className="rounded-xl transition-all hover:bg-primary-hoverColorDropdown"
+              onSubmit={(e) => {
+                e.preventDefault();
+                api()
+                  .get("/Admin/Auth/Logout")
+                  .then(() => {
+                    Cookies.remove("token");
+                    localStorage.clear();
+                    router.push("/login");
+                  })
+                  .catch((err) => {
+                    console.log(err.response);
+                    if (err?.response?.status === 429) "error";
+                  });
+              }}
+            >
+              <button
+                type="submit"
+                className="py-2 px-4 w-full text-primary-linkColor font-semibold flex"
+              >
+                <span className="mr-2 w-5 h-5">
+                  <FontAwesomeIcon icon="sign-out-alt" />
+                </span>
+                <span>Logout</span>
+              </button>
+            </form>
           </Menu.Items>
         </Transition>
       </Menu>

@@ -1,11 +1,17 @@
 import { ThunkDispatch } from "redux-thunk";
+import { IPagination } from "./user";
 export interface BookingState {
-  Bookings: [];
-  Booking: {};
+  Bookings: any; //Tekrar Bakılcak
+  Booking: ISingleBooking;
   loading: boolean;
   error: string;
   success: string;
   status: null | number;
+}
+export interface IBookings {
+  count: number;
+  data: IBooking[];
+  pagination: IPagination;
 }
 export interface ISingleBooking {
   Date: string;
@@ -52,6 +58,7 @@ export interface ISingleBooking {
   vehicleClass: string;
   _id: string;
 }
+
 export interface IBooking {
   _id: string;
   pickup: string;

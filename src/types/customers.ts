@@ -4,6 +4,7 @@ import { ReactNode } from "react";
 export interface ISingleUser {
   Login: [{ Date: string; publicV4: string }];
   Logout: [{ Date: string; publicV4: string }];
+  avatar: string;
   createdAt: string;
   email: string;
   firstName: string;
@@ -18,6 +19,7 @@ export interface ISingleUser {
   _id: string;
   userSpecialInformation: {
     Login: string;
+    Logout: string;
     location: {
       area: number;
       city: string;
@@ -34,15 +36,17 @@ export interface ISingleUser {
     user: { _id: string; role: string; name: string };
   };
 }
-export interface IMobilNav {
+export interface IMobilFilter {
   setIsFilter: React.Dispatch<React.SetStateAction<boolean>>;
   isFilter: boolean;
   router: NextRouter;
+  count: number;
 }
-export interface IMobilCard {
+export interface IMobilCustomer {
   fullName: string;
-  totalSpent: number;
-  totalBooking: number;
-  lastSeen: string;
+  title: string;
+  phoneNumber: string;
+  createdAt: string;
   uuid: string;
+  avatar: string;
 }

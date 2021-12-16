@@ -79,8 +79,9 @@ const SidebarDropDown: React.FC<ISidebarDropDown> = ({
               variants={subMenuAnimate}
               className="w-full"
               onClick={() => toggleHover(false)}
+              key={index}
             >
-              <Link href={item.target} key={index}>
+              <Link href={item.target}>
                 <a className="w-full py-2 px-4 text-base flex items-center hover:bg-gray-200 rounded-md cursor-pointer transition-all">
                   <span className="w-5 mr-2">
                     <FontAwesomeIcon

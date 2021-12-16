@@ -1,22 +1,50 @@
 import ReactSelect from "@components/ReactSelect";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { lastSeen, hasBooking, hasNewsletter } from "@lib/listItems";
-import React from "react";
-import { IMobilNav } from "types/customers";
+import { lastSeen, hasBooking, hasNewsletter } from "utils/lib/listItems";
+import React, { useState } from "react";
+import { IMobilFilter } from "types/customers";
+import api from "utils/lib/api";
+import fileDownload from "js-file-download";
+import Spinner from "@components/Spinner";
+import { debounce } from "lodash";
+import { Error } from "utils/lib/messages";
+import { useAuth } from "utils/contexts/useAuth";
 
-const MobilNav:React.FC<IMobilNav> = ({ setIsFilter, isFilter, router }) => {
-  
+const MobilFilter: React.FC<IMobilFilter> = ({
+  setIsFilter,
+  isFilter,
+  router,
+  count,
+}) => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const debounceTest = debounce((e) => {
+    if (e?.target?.value?.length > 0) {
+      router.push({
+        pathname: router.pathname,
+        query: { ...router.query, q: e.target.value },
+      });
+    } else {
+      const querys = { ...router.query };
+      delete querys["q"];
+      router.push({
+        pathname: router.pathname,
+        query: querys,
+      });
+    }
+  }, 1000);
+  const { setIsShow } = useAuth();
+
   return (
-    <div className="p-4 lg:hidden block">
+    <div className="py-4 lg:hidden block">
       <div className="flex justify-between items-center">
         <div className="bg-gray-200 h-10 rounded-t-xl relative flex">
           <input
             type="text"
-            className="bg-transparent h-full w-10/12	py-3 pl-2"
+            placeholder="Search"
+            onChange={debounceTest}
+            defaultValue={router?.query?.q}
+            className="bg-transparent h-full w-full	py-3 pl-2 outline-none rounded-t-xl"
           />
-          <button className="flex-1 flex items-center justify-center h-full w-full">
-            <FontAwesomeIcon icon="search" className="text-gray-600 " />
-          </button>
         </div>
         <div className="h-full flex items-center justify-center">
           <button className="h-full" onClick={() => setIsFilter(!isFilter)}>
@@ -25,12 +53,38 @@ const MobilNav:React.FC<IMobilNav> = ({ setIsFilter, isFilter, router }) => {
               className="text-xl text-indigo-600 mr-4"
             />
           </button>
-          <button className="h-full">
-            <FontAwesomeIcon
-              icon="download"
-              className="text-xl text-indigo-600"
-            />
-          </button>
+          {isLoading ? (
+            <Spinner type="TailSpin" w={20} h={20} />
+          ) : (
+            <button
+              className="h-full"
+              onClick={(e) => {
+                e.preventDefault();
+                setIsLoading(true);
+                if (count > 0) {
+                  api()
+                    .get("/Admin/User/exportExcelUser", {
+                      responseType: "blob",
+                    })
+                    .then((data) => {
+                      fileDownload(data.data, "customers.xlsx");
+                      setIsLoading(false);
+                    });
+                } else {
+                  Error(
+                    "You must have at least 1 piece of data to get the excel output."
+                  );
+                  setIsShow(true);
+                  setIsLoading(false);
+                }
+              }}
+            >
+              <FontAwesomeIcon
+                icon="download"
+                className="text-xl text-indigo-600"
+              />
+            </button>
+          )}
         </div>
       </div>
       {isFilter && (
@@ -39,22 +93,22 @@ const MobilNav:React.FC<IMobilNav> = ({ setIsFilter, isFilter, router }) => {
             <div className="grid grid-cols-2 gap-4 grid-rows-2">
               <ReactSelect
                 options={lastSeen.values}
-                placeholder="Last Seen"
+                placeHolder="Last Seen"
                 name={"lastSeen"}
               />
               <ReactSelect
                 options={hasBooking.values}
-                placeholder="Has Ordered"
+                placeHolder="Has Ordered"
                 name={"hasOrdered"}
               />
               <ReactSelect
                 options={hasBooking.values}
-                placeholder="Has Booking"
+                placeHolder="Has Booking"
                 name={"hasBooking"}
               />
               <ReactSelect
                 options={hasNewsletter.values}
-                placeholder="Has Newsletter"
+                placeHolder="Has Newsletter"
                 name={"hasNewsletter"}
               />
             </div>
@@ -63,16 +117,16 @@ const MobilNav:React.FC<IMobilNav> = ({ setIsFilter, isFilter, router }) => {
             <h1 className="text-xl text-center font-semibold">
               Active Filters
             </h1>
-            <div className="mt-2 flex items-center justify-between">
+            <div className="mt-2 flex items-center justify-between flex-wrap">
               {Object.getOwnPropertyNames(router.query)?.map((item, index) => {
-                return <span key={index}>{item}</span>;
+                return <span key={index} className="mb-2">{item}</span>;
               })}
             </div>
-          </div>{" "}
+          </div>
         </>
       )}
     </div>
   );
 };
 
-export default MobilNav;
+export default MobilFilter;

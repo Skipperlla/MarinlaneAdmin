@@ -12,7 +12,6 @@ interface ISegment {
   elements: { title: string; values: IValues[] };
 }
 const Segment: React.FC<ISegment> = ({ title, elements, icon }) => {
-  console.log(elements);
   const router = useRouter();
 
   return (

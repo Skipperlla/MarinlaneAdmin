@@ -1,9 +1,8 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
+import React from "react";
 import moment from "moment";
 import CurrencyFormat from "react-currency-format";
 import { useRouter } from "next/router";
-import { colorFilter } from "@lib/listItems";
+import { colorFilter } from "utils/lib/listItems";
 import Pagination from "@components/Customers/Pagination";
 import { IBooking } from "types/booking";
 import { IPagination } from "types/user";
@@ -89,7 +88,7 @@ const Table: React.FC<ITable> = ({ data, count, pagination }) => {
         </tbody>
       </table>
       {count <= 0 ? (
-        <div>No Result Found</div>
+        <div className="text-center my-6 text-xl">No Result Found</div>
       ) : (
         <Pagination count={count} router={router} pagination={pagination} />
       )}

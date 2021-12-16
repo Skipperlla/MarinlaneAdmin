@@ -1,4 +1,4 @@
-import MobilTable from "@components/Customers/MobilTable";
+import MobilCustomers from "@components/Customers/MobilCustomers";
 import Table from "@components/Customers/Table";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Main from "@layout/Main";
@@ -12,9 +12,10 @@ import MobilFilter from "@components/Customers/MobilFilter";
 import Filter from "@components/Customers/Filter";
 import Pagination from "@components/Customers/Pagination";
 import Spinner from "@components/Spinner";
-import api from "@lib/api";
+import api from "utils/lib/api";
 import fileDownload from "js-file-download";
-const Customers = () => {
+import withAuth from "utils/lib/withAuth";
+const index = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const { Users, loading } = useSelector((state: AppState) => state.user);
@@ -70,27 +71,84 @@ const Customers = () => {
           />
         </div>
       </div>
-      <MobilFilter
-        router={router}
-        setIsFilter={setIsFilter}
-        isFilter={isFilter}
-      />
-      <div className="border p-4 lg:hidden block">
-        {Users?.data?.map((users, index: number) => {
-          return (
-            <MobilTable
-              key={index}
-              fullName={users.fullName}
-              totalSpent={users.totalSpending}
-              totalBooking={users.totalBooking}
-              lastSeen={"21.12.2021"}
-              uuid={users._id}
+
+      <div className="lg:hidden block">
+        {loading ? (
+          <div className="flex justify-center items-center my-6">
+            <Spinner type="TailSpin" w={80} h={80} />
+          </div>
+        ) : (
+          <>
+            <MobilFilter
+              router={router}
+              setIsFilter={setIsFilter}
+              isFilter={isFilter}
+              count={Users?.count}
             />
-          );
-        })}
+            {Users?.count > 0 ? (
+              <>
+                {Users?.data?.map((users, index: number) => {
+                  return (
+                    <MobilCustomers
+                      key={index}
+                      fullName={`${users.firstName} ${users.lastName}`}
+                      phoneNumber={users.phoneNumber}
+                      title={users.title}
+                      createdAt={users.createdAt}
+                      uuid={users._id}
+                      avatar={users.avatar}
+                    />
+                  );
+                })}
+                <div className="flex items-center justify-end">
+                  {Number(Users?.pagination?.next?.page) !== 2 && (
+                    <button
+                      className="text-xl mr-4"
+                      onClick={() => {
+                        router.push({
+                          pathname: router.pathname,
+                          query: {
+                            ...router.query,
+                            perPage: router.query.perPage
+                              ? Number(router?.query?.perPage) - 1
+                              : 1,
+                          },
+                        });
+                      }}
+                    >
+                      <FontAwesomeIcon icon="chevron-left" />
+                    </button>
+                  )}
+                  {Users?.pagination?.next?.page && (
+                    <button
+                      className="text-xl"
+                      onClick={() => {
+                        router.push({
+                          pathname: router.pathname,
+                          query: {
+                            ...router.query,
+                            perPage: router.query.perPage
+                              ? Number(router?.query?.perPage) + 1
+                              : 1,
+                          },
+                        });
+                      }}
+                    >
+                      <FontAwesomeIcon icon="chevron-right" />
+                    </button>
+                  )}
+                </div>
+              </>
+            ) : (
+              <div className="flex-1 items-center justify-center flex">
+                No Result Found
+              </div>
+            )}
+          </>
+        )}
       </div>
     </Main>
   );
 };
 
-export default Customers;
+export default withAuth(index);

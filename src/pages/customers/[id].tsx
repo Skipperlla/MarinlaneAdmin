@@ -1,5 +1,4 @@
 import Main from "@layout/Main";
-import { colorFilter } from "@lib/listItems";
 
 import React from "react";
 import CurrencyFormat from "react-currency-format";
@@ -9,7 +8,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import moment from "moment";
 import Link from "next/link";
 import { useRouter } from "next/router";
-const SingleUser = (user) => {
+import { ISingleUser } from "types/customers";
+import withAuth from "utils/lib/withAuth";
+import Image from "next/image";
+
+const SingleUser = (user: { user: ISingleUser }) => {
   const {
     createdAt,
     email,
@@ -23,12 +26,18 @@ const SingleUser = (user) => {
     totalSpending,
     userSpecialInformation,
     notification,
+    avatar,
   } = user?.user;
   const contactDetails = [
     { title: "First Name", value: firstName, icon: "user" },
     { title: "Last Name", value: lastName, icon: "user" },
     { title: "E-mail", value: email, icon: "at" },
     { title: "Phone Number", value: phoneNumber, icon: "mobile-alt" },
+    {
+      title: "Title -- Gender",
+      value: title,
+      icon: title === "Mrs" ? "female" : "male",
+    },
   ];
   const extraDetails = [
     {
@@ -110,6 +119,7 @@ const SingleUser = (user) => {
     },
   ];
   const router = useRouter();
+
   return (
     <Main>
       <Link href={router.pathname.replace("/[id]", "")}>
@@ -121,10 +131,18 @@ const SingleUser = (user) => {
         <div className="flex justify-between">
           <div className="flex items-center justify-center">
             <span className="text-gray-500">
-              {moment(createdAt).startOf("hour").fromNow()} Joined
+              {moment(createdAt).startOf("minutes").fromNow()} Joined
             </span>
           </div>
-          <div className="text-xl">{title}</div>
+          <div className="rounded-full w-10 h-10 ">
+            <Image
+              src={avatar}
+              width={40}
+              height={40}
+              layout="fixed"
+              className="object-cover rounded-full"
+            />
+          </div>
         </div>
         <SingleTable title={"Contact Details"} data={contactDetails} />
         <SingleTable title={"Extra Details"} data={extraDetails} />
@@ -132,11 +150,6 @@ const SingleUser = (user) => {
           title={"Special Information Details"}
           data={specialInformationDetails}
         />
-
-        {/* 
-        <SingleTable title={"Optional Details"} data={optionalDetails} />
-        <SingleTable title={"Booking Details"} data={bookingDetails} />
-        <SingleTable title={"Price Details"} data={PriceList} /> */}
       </div>
     </Main>
   );
@@ -160,4 +173,4 @@ export const getServerSideProps = async (context: {
 
   return { props: { user: user?.user } };
 };
-export default SingleUser;
+export default withAuth(SingleUser);

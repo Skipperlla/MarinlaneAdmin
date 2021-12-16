@@ -1,26 +1,25 @@
 import { ThunkDispatch } from "redux-thunk";
+import { ISingleUser } from "./customers";
 
 export interface UserState {
-  Users: {
-    count: number;
-    data: ICustomers[];
-    pagination: {
-      next: { page: number; limit: number };
-      prev: { page: number; limit: number };
-    };
-  };
-  User: {};
+  Users: IUsers;
+  User: ISingleUser;
   loading: boolean;
   error: string;
   success: string;
   status: number | null;
 }
-
+export interface IUsers {
+  count: number;
+  data: ICustomers[];
+  pagination: IPagination;
+}
 interface GET_USERS_START {
   type: "GET_USERS_START";
 }
 export interface ICustomers {
   _id: string;
+  avatar: string;
   totalSpending: number;
   totalBooking: number;
   title: string;

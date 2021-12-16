@@ -1,37 +1,35 @@
-import { ISingleUser } from "types/customers";
-import { UserAction, UserState, IUsers } from "types/user";
+import { SystemAction, SystemState, ISystem } from "types/system";
 
-const defaultState: UserState = {
-  Users: {} as IUsers,
-  User: {} as ISingleUser,
+const defaultState: SystemState = {
+  System: {} as ISystem,
   loading: false,
   error: "",
   success: "",
   status: null,
 };
 
-const userReducer = (state = defaultState, action: UserAction) => {
+const systemReducer = (state = defaultState, action: SystemAction) => {
   switch (action.type) {
-    case "GET_USERS_START":
+    case "SYSTEM_START":
       return { ...state, loading: true, error: "", success: "", status: null };
-    case "GET_USER_SUCCESS":
+    case "SYSTEM_SUCCESS":
       return {
         ...state,
         loading: false,
-        Users: action.payload,
+        System: action.payload,
         status: action.status,
       };
-    case "GET_USER_ERROR":
+    case "SYSTEM_ERROR":
       return {
         ...state,
         loading: false,
         status: action.status,
         error: action.payload,
       };
-    case "GET_USER_RESET":
+    case "SYSTEM_RESET":
       return { ...state, loading: false, error: "", success: "", status: null };
     default:
       return state;
   }
 };
-export default userReducer;
+export default systemReducer;

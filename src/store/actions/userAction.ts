@@ -1,4 +1,4 @@
-import api from "@lib/api";
+import api from "utils/lib/api";
 import { UserDispatch } from "types/user";
 interface IQuery {
   lastSeen?: string | string[] | undefined;
@@ -15,6 +15,7 @@ export const getUser = (query: IQuery) => async (dispatch: UserDispatch) => {
       params: query,
     })
     .then((data) => {
+      
       dispatch({
         type: "GET_USER_SUCCESS",
         payload: data.data,

@@ -6,7 +6,7 @@ import {
   hasNewsletter,
   hasOrdered,
   lastSeen,
-} from "@lib/listItems";
+} from "utils/lib/listItems";
 import { debounce } from "lodash";
 import { NextRouter } from "next/router";
 interface IFilter {
@@ -39,16 +39,10 @@ const Filter: React.FC<IFilter> = ({ isFilter, router }) => {
         <div className="h-12 bg-gray-200 rounded-t-xl flex mb-6">
           <input
             type="text"
-            className="h-full py-3 pl-2 w-10/12 bg-transparent rounded-t-xl focus:outline-none"
+            className="h-full py-3 pl-2 w-full bg-transparent rounded-t-xl focus:outline-none"
             placeholder="Search"
             onChange={debounceTest}
           />
-
-          <div className="flex-1 flex items-center justify-center h-full w-full">
-            <button className="text-gray-600 h-full flex items-center justify-center">
-              <FontAwesomeIcon icon="search" />
-            </button>
-          </div>
         </div>
         <Segment title={"LAST VISITED"} elements={lastSeen} icon={"clock"} />
         <Segment

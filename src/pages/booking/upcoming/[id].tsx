@@ -1,5 +1,5 @@
 import Main from "@layout/Main";
-import { colorFilter } from "@lib/listItems";
+import { colorFilter } from "utils/lib/listItems";
 
 import React from "react";
 import CurrencyFormat from "react-currency-format";
@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ISingleBooking } from "types/booking";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import withAuth from "utils/lib/withAuth";
 const SingleUser = (booking: { booking: ISingleBooking }) => {
   const {
     rides,
@@ -192,4 +193,4 @@ export const getServerSideProps = async (context: {
 
   return { props: { booking: booking.data } };
 };
-export default SingleUser;
+export default withAuth(SingleUser);
