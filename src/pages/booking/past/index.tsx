@@ -112,6 +112,7 @@ const index = () => {
                       createdAt={item.createdAt}
                       duration={item.duration}
                       status={item.status}
+                      uuid={item.uuid}
                     />
                   );
                 })}

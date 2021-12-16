@@ -3,12 +3,14 @@ import React from "react";
 import Link from "next/link";
 import moment from "moment";
 import { colorFilter } from "utils/lib/listItems";
+import { useRouter } from "next/router";
 interface IMobilBooking {
   Date: string;
   Time: string;
   createdAt: string;
   duration: string;
   status: string;
+  uuid: string;
 }
 const MobilBooking: React.FC<IMobilBooking> = ({
   Date,
@@ -16,7 +18,9 @@ const MobilBooking: React.FC<IMobilBooking> = ({
   createdAt,
   duration,
   status,
+  uuid,
 }) => {
+  const router = useRouter();
   return (
     <div className="border rounded-xl mb-6">
       <div className="w-full flex justify-between items-center border-b p-4">
@@ -25,7 +29,7 @@ const MobilBooking: React.FC<IMobilBooking> = ({
             {status.charAt(0).toUpperCase() + status.slice(1)}
           </h1>
         </div>
-        <Link href={`/customers/${2}`}>
+        <Link href={`${router.pathname}/${uuid}`}>
           <a className="text-indigo-500">
             <FontAwesomeIcon icon="eye" />
           </a>

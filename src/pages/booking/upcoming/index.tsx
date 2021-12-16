@@ -111,10 +111,12 @@ const index = () => {
                       createdAt={item.createdAt}
                       duration={item.duration}
                       status={item.status}
+                      uuid={item.uuid}
                     />
                   );
                 })}
-                {Object.getOwnPropertyNames(Bookings?.pagination).length > 0 && (
+                {Object.getOwnPropertyNames(Bookings?.pagination).length >
+                  0 && (
                   <div className="flex items-center justify-end">
                     {Number(Bookings?.pagination?.next?.page) !== 2 && (
                       <button
