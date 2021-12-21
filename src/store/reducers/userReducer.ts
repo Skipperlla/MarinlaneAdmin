@@ -30,6 +30,26 @@ const userReducer = (state = defaultState, action: UserAction) => {
       };
     case "GET_USER_RESET":
       return { ...state, loading: false, error: "", success: "", status: null };
+
+    case "LEADER_BOARD_START":
+      return { ...state, loading: true, error: "", success: "", status: null };
+    case "LEADER_BOARD_SUCCESS":
+      return {
+        ...state,
+        loading: false,
+        Users: action.payload,
+        status: action.status,
+      };
+    case "LEADER_BOARD_ERROR":
+      return {
+        ...state,
+        loading: false,
+        status: action.status,
+        error: action.payload,
+      };
+    case "LEADER_BOARD_RESET":
+      return { ...state, loading: false, error: "", success: "", status: null };
+
     default:
       return state;
   }

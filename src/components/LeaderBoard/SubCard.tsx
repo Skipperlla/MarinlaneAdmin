@@ -2,28 +2,74 @@ import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import CurrencyFormat from "react-currency-format";
-const SubCard = () => {
+export interface ISubCard {
+  avatar: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  totalSpending: number;
+  phoneNumber: string;
+  title: string;
+}
+const SubCard: React.FC<{ data: ISubCard[] }> = ({ data }) => {
+  console.log(data);
   const Titles = [
     "Full Name",
     "Total Spending",
     "Title",
     "Phone Number",
     "Email",
-    "Congratulate",
   ];
   return (
-    <table className="table-auto w-full h-auto">
-      <thead>
-        <tr>
+    <table className="table-auto w-full h-auto py-2 px-4 border bg-white rounded-xl">
+      <thead className="">
+        <tr className="border ">
           {Titles.map((item, index) => {
-            return <th>{item}</th>;
+            return (
+              <th
+                key={index}
+                className={`py-2 px-4 border-r ${index !== 6 && "border-r"}`}
+              >
+                {item}
+              </th>
+            );
           })}
         </tr>
       </thead>
       <tbody>
-        <tr className="bg-white border rounded-xl p-3 mt-2 flex items-center justify-between w-full">
-          <td>ömer</td>
-        </tr>
+        {data?.map((item, index: number) => {
+          return (
+            <tr key={index} className="border ">
+              <td className="text-center py-2 px-4 border-r flex items-center">
+                <div className="w-8 h-8 rounded-full mr-2">
+                  <Image
+                    src="https://res.cloudinary.com/insta-clone-app/image/upload/v1639045795/m1zxzoqj5jwfwpggbidx.png"
+                    width={32}
+                    height={32}
+                    layout="fixed"
+                    className="object-cover rounded-full "
+                  />
+                </div>
+                <span>
+                  {item.firstName}&nbsp;{item.lastName}
+                </span>
+              </td>
+              <td className="text-center py-2 px-4 border-r">
+                <CurrencyFormat
+                  value={item.totalSpending}
+                  displayType={"text"}
+                  thousandSeparator={true}
+                  prefix={"$"}
+                />
+              </td>
+              <td className="text-center py-2 px-4 border-r">{item.title}</td>
+              <td className="text-center py-2 px-4 border-r">
+                {item.phoneNumber}
+              </td>
+              <td className="text-center py-2 px-4 border-r">{item.email}</td>
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   );

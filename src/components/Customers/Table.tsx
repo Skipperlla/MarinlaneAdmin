@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useState } from "react";
 import moment from "moment";
 import CurrencyFormat from "react-currency-format";
 import { useRouter } from "next/router";
@@ -19,6 +19,7 @@ const Table: React.FC<{ data: ICustomers[] }> = ({ data }) => {
     { title: "Blocked" },
     { title: "News" },
   ];
+  const [text, setText] = useState("");
 
   return (
     <table className="table-auto w-full h-auto">
