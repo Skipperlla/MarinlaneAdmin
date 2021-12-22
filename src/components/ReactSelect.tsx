@@ -9,11 +9,13 @@ interface IReactSelect {
   options: IOptions[];
   placeHolder: string;
   name: string;
+  value: string | string[] | undefined;
 }
 const ReactSelect: React.FC<IReactSelect> = ({
   options,
   placeHolder,
   name,
+  value,
 }) => {
   const router = useRouter();
 
@@ -24,8 +26,9 @@ const ReactSelect: React.FC<IReactSelect> = ({
       name={name}
       isClearable={true}
       isSearchable={false}
+      value={options.filter((option) => option.value === value)}
       onChange={(e: any, name: any) => {
-        if (router.query[name.name] == e.value) {
+        if (name.action === "clear") {
           const querys = { ...router.query };
           delete querys[name.name];
           router.push({

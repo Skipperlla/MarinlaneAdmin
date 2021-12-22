@@ -13,7 +13,7 @@ const login = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
   useEffect(() => {
-    if (Cookies.get("token") != undefined) router.push("/");
+    if (Cookies.get("authToken") != undefined) router.push("/");
   }, []);
   useEffect(() => {
     router.prefetch("/");
@@ -37,7 +37,7 @@ const login = () => {
               form
             )
             .then((data) => {
-              Cookies.set("token", data.data.access_token, { expires: 365 });
+              Cookies.set("authToken", data.data.access_token, { expires: 365 });
               localStorage.setItem("me", JSON.stringify(data.data.user));
               router.push("/");
             })
@@ -74,7 +74,8 @@ const login = () => {
             type="password"
             onChange={handleChange}
             placeholder="••••••••"
-            name="password"required
+            name="password"
+            required
             className="lg:mr-3 mb-6 lg:mb-0 w-full focus:border-black  border h-10 px-3 border-primary-changePassword focus:outline-none"
           />
         </div>

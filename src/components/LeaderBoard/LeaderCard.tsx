@@ -5,7 +5,16 @@ import firstMedal from "../../../public/firstMedal.png";
 import secondMedal from "../../../public/secondMedal.png";
 import thirdMedal from "../../../public/thirdMedal.png";
 import moment from "moment";
-const LeaderCard = ({
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+interface ILeaderCard {
+  avatar: string;
+  fullName: string;
+  totalSpending: number;
+  title: string;
+  createdAt: string;
+  index: number;
+}
+const LeaderCard: React.FC<ILeaderCard> = ({
   avatar,
   fullName,
   createdAt,
@@ -22,7 +31,7 @@ const LeaderCard = ({
       <div className="w-16 h-16  rounded-full absolute z-10 top-2">
         <Image
           src={
-            index === 1 ? firstMedal : index === 2 ? secondMedal : thirdMedal
+            index === 1 ? secondMedal : index === 2 ? firstMedal : thirdMedal
           }
           width={64}
           height={64}
@@ -31,7 +40,15 @@ const LeaderCard = ({
         />
       </div>
       {/* bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 */}
-      <div className={`bg-gray-100 h-24 relative rounded-t-xl `}>
+      <div
+        className={`h-24 relative rounded-t-xl ${
+          index === 1
+            ? "bg-primary-second"
+            : index === 2
+            ? "bg-primary-first"
+            : "bg-primary-third"
+        }`}
+      >
         <div className="w-full text-center my-6 text-2xl ">
           <CurrencyFormat
             value={totalSpending}
@@ -57,10 +74,14 @@ const LeaderCard = ({
         <div className="w-full text-center text-xl mt-2">{fullName}</div>
       </div>
       <div className="border-t py-2 px-4 flex justify-between items-center">
-        <div>
-          <h1>{title}</h1>
+        <div className="text-2xl text-gray-400">
+          <FontAwesomeIcon icon={title === "Mrs" ? "female" : "male"} />
         </div>
         <div className="flex items-center">
+          <FontAwesomeIcon
+            icon="clock"
+            className="text-sm text-gray-400 mr-1"
+          />
           <h1 className="text-sm">
             {moment(createdAt).startOf("hour").fromNow()} Joined
           </h1>

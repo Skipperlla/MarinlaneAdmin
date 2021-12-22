@@ -7,7 +7,7 @@ const withAuth = (WrappedComponent: any) => {
       const Router = useRouter();
 
       // If there is no access token we redirect to "/" page.
-      if (Cookies.get("token") == undefined) {
+      if (Cookies.get("authToken") == undefined) {
         Router.push("/login");
         return null;
       }

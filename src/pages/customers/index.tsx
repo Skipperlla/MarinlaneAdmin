@@ -10,34 +10,49 @@ import { AppState } from "store";
 import { getUser } from "store/actions/userAction";
 import MobilFilter from "@components/Customers/MobilFilter";
 import Filter from "@components/Customers/Filter";
-import Pagination from "@components/Customers/Pagination";
+
 import Spinner from "@components/Spinner";
 import api from "utils/lib/api";
 import fileDownload from "js-file-download";
 import withAuth from "utils/lib/withAuth";
+import { useAuth } from "@utils/contexts/useAuth";
+import { Error } from "@utils/lib/messages";
 const index = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const { Users, loading } = useSelector((state: AppState) => state.user);
+  const { setIsShow } = useAuth();
   const [isFilter, setIsFilter] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   useEffect(() => {
     if (router.isReady) dispatch(getUser(router.query));
   }, [router.isReady, router.query]);
-  console.log(Users?.pagination);
+
   return (
     <Main>
-      <div className="mb-4 w-full lg:flex justify-end items-center text-indigo-600 font-semibold hidden">
+      <div className="mb-4 w-full lg:flex justify-between items-center text-indigo-600 font-semibold hidden">
+        <div className="text-xl font-semibold py-1 px-3 text-black">
+          <h1>Customers</h1>
+        </div>
+
         <div
           onClick={(e) => {
             e.preventDefault();
             setIsLoading(true);
-            api()
-              .get("/Admin/User/exportExcelUser", { responseType: "blob" })
-              .then((data) => {
-                fileDownload(data.data, "customers.xlsx");
-                setIsLoading(false);
-              });
+            if (Users?.count > 0) {
+              api()
+                .get("/Admin/User/exportExcelUser", { responseType: "blob" })
+                .then((data) => {
+                  fileDownload(data.data, "customers.xlsx");
+                  setIsLoading(false);
+                });
+            } else {
+              Error(
+                "You must have at least 1 piece of data to get the excel output."
+              );
+              setIsShow(true);
+              setIsLoading(false);
+            }
           }}
           className="cursor-pointer flex items-center justify-center hover:bg-indigo-300 py-1 px-3 rounded-xl transition-all"
         >
@@ -61,14 +76,12 @@ const index = () => {
               <Spinner type="TailSpin" w={80} h={80} />
             </div>
           ) : (
-            <Table data={Users?.data} />
+            <Table
+              data={Users?.data}
+              count={Users?.count}
+              pagination={Users?.pagination}
+            />
           )}
-
-          <Pagination
-            count={Users?.count}
-            router={router}
-            pagination={Users?.pagination}
-          />
         </div>
       </div>
 

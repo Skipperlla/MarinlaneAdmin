@@ -2,7 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 const api = () => {
-  const token = Cookies.get("token");
+  const token = Cookies.get("authToken");
   return axios.create({
     baseURL:
       process.env.NODE_ENV === "production"

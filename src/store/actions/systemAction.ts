@@ -13,6 +13,7 @@ export const systemInformation = () => async (dispatch: SystemDispatch) => {
       });
     })
     .catch((err) => {
+      console.log(err.response);
       dispatch({
         type: "SYSTEM_ERROR",
         payload: "Unable to load System Information.",

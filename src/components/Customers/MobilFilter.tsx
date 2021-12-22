@@ -91,25 +91,28 @@ const MobilFilter: React.FC<IMobilFilter> = ({
         <>
           <div className="mt-4">
             <div className="grid grid-cols-2 gap-4 grid-rows-2">
-              <ReactSelect
+              {/* <ReactSelect
                 options={lastSeen.values}
                 placeHolder="Last Seen"
                 name={"lastSeen"}
-              />
+              /> */}
               <ReactSelect
                 options={hasBooking.values}
                 placeHolder="Has Ordered"
                 name={"hasOrdered"}
+                value={router?.query?.hasOrdered}
               />
               <ReactSelect
                 options={hasBooking.values}
                 placeHolder="Has Booking"
                 name={"hasBooking"}
+                value={router?.query?.hasBooking}
               />
               <ReactSelect
                 options={hasNewsletter.values}
                 placeHolder="Has Newsletter"
                 name={"hasNewsletter"}
+                value={router?.query?.hasNewsletter}
               />
             </div>
           </div>
@@ -119,7 +122,11 @@ const MobilFilter: React.FC<IMobilFilter> = ({
             </h1>
             <div className="mt-2 flex items-center justify-between flex-wrap">
               {Object.getOwnPropertyNames(router.query)?.map((item, index) => {
-                return <span key={index} className="mb-2">{item}</span>;
+                return (
+                  <span key={index} className="mb-2">
+                    {item}
+                  </span>
+                );
               })}
             </div>
           </div>

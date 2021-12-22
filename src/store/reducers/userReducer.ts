@@ -50,6 +50,17 @@ const userReducer = (state = defaultState, action: UserAction) => {
     case "LEADER_BOARD_RESET":
       return { ...state, loading: false, error: "", success: "", status: null };
 
+    case "LOGOUT_START":
+      return { ...state, error: "", success: "", status: null };
+
+    case "LOGOUT_ERROR":
+      return {
+        ...state,
+        loading: false,
+        status: action.status,
+        error: action.payload,
+      };
+
     default:
       return state;
   }

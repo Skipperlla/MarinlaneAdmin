@@ -80,7 +80,7 @@ const Table: React.FC<ITable> = ({ data, count, pagination }) => {
                   />
                 </td>
                 <td className="text-center py-2 px-4">
-                  {moment(items.createdAt).startOf("hour").fromNow()}
+                  {moment(items.createdAt).startOf("minute").fromNow()}
                 </td>
               </tr>
             );

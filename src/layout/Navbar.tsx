@@ -9,7 +9,7 @@ const Navbar: React.FC<{
 }> = ({ isSidebarOpen, setIsSidebarOpen }) => {
   return (
     <nav className="h-12 bg-white border-b w-full flex">
-      <div className="flex items-center justify-center pl-6">
+      <div className="flex items-center justify-center pl-6 lg:hidden">
         <button
           onClick={(e) => {
             e.preventDefault();

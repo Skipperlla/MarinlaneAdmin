@@ -6,9 +6,12 @@ import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import api from "utils/lib/api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useDispatch } from "react-redux";
+import { Logout } from "store/actions/userAction";
 
 const Dropdown = () => {
   const [isHover, settoggleHover] = useState(false);
+  const dispatch = useDispatch();
   const [me, setMe] = useState<{ firstName: string; lastName: string } | null>(
     null
   );
@@ -67,14 +70,7 @@ const Dropdown = () => {
               className="rounded-xl transition-all hover:bg-primary-hoverColorDropdown"
               onSubmit={(e) => {
                 e.preventDefault();
-                api()
-                  .get("/Admin/Auth/Logout")
-                  .then(() => {
-                    Cookies.remove("token");
-                    localStorage.clear();
-                    router.push("/login");
-                  })
-                  .catch((err) => {});
+                dispatch(Logout(router));
               }}
             >
               <button

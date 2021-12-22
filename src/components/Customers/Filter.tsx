@@ -1,4 +1,3 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect } from "react";
 import Segment from "./Segment";
 import {
@@ -44,7 +43,7 @@ const Filter: React.FC<IFilter> = ({ isFilter, router }) => {
             onChange={debounceTest}
           />
         </div>
-        <Segment title={"LAST VISITED"} elements={lastSeen} icon={"clock"} />
+        {/* <Segment title={"LAST VISITED"} elements={lastSeen} icon={"clock"} /> */}
         <Segment
           title={"HAS SPENDING"}
           elements={hasOrdered}

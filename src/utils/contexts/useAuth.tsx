@@ -8,7 +8,7 @@ interface IProps {
   children: ReactNode;
 }
 export function AuthProvider({ children }: IProps) {
-  const isLoggedIn = Cookies.get("token");
+  const isLoggedIn = Cookies.get("authToken");
   const [isShow, setIsShow] = useState<boolean>(false);
 
   return (

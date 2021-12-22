@@ -15,14 +15,19 @@ export interface IUsers {
   data: ICustomers[];
   pagination: IPagination;
   topTen: ITopTen;
+  topThree: ITopThree;
 }
+
 interface ITopTen {
   data: ISubCard[];
   count: number;
+  pagination: IPagination;
 }
-interface GET_USERS_START {
-  type: "GET_USERS_START";
+interface ITopThree {
+  data: ISubCard[];
+  count: number;
 }
+
 export interface ICustomers {
   _id: string;
   avatar: string;
@@ -38,12 +43,15 @@ export interface ICustomers {
   fullName: string;
   firstName: string;
   email: string;
-  createdAt: string;
+  lastSeen: string;
   bookings: [{ createdAt: string; _id: string }];
 }
 export interface IPagination {
   next: { page: number; limit: number };
   prev: { page: number; limit: number };
+}
+interface GET_USERS_START {
+  type: "GET_USERS_START";
 }
 interface GET_USER_SUCCESS {
   type: "GET_USER_SUCCESS";
@@ -74,6 +82,16 @@ interface LEADER_BOARD_SUCCESS {
   };
   status: number;
 }
+
+interface LOGOUT_START {
+  type: "LOGOUT_START";
+}
+interface LOGOUT_ERROR {
+  type: "LOGOUT_ERROR";
+  status: number;
+  payload: string;
+}
+
 interface LEADER_BOARD_ERROR {
   type: "LEADER_BOARD_ERROR";
   payload: string;
@@ -91,5 +109,8 @@ export type UserAction =
   | LEADER_BOARD_START
   | LEADER_BOARD_SUCCESS
   | LEADER_BOARD_ERROR
-  | LEADER_BOARD_RESET;
+  | LEADER_BOARD_RESET
+  | LOGOUT_START
+  | LOGOUT_ERROR;
+
 export type UserDispatch = ThunkDispatch<UserState, void, UserAction>;

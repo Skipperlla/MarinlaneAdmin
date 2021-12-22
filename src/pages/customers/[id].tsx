@@ -27,6 +27,7 @@ const SingleUser = (user: { user: ISingleUser }) => {
     userSpecialInformation,
     notification,
     avatar,
+    lastSeen,
   } = user?.user;
   const contactDetails = [
     { title: "First Name", value: firstName, icon: "user" },
@@ -117,6 +118,11 @@ const SingleUser = (user: { user: ISingleUser }) => {
       value: userSpecialInformation?.user?.role,
       icon: "user-tag",
     },
+    {
+      title: "Last Seen",
+      value: moment(lastSeen).startOf("minutes").fromNow(),
+      icon: "clock",
+    },
   ];
   const router = useRouter();
 
@@ -167,14 +173,14 @@ export const getServerSideProps = async (context: {
     {
       headers: {
         Authorization: `Bearer: ${
-          context.req.headers.cookie.split("token=")[1]
+          context.req.headers.cookie.split("authToken=")[1]
         }`,
       },
     }
   );
 
   const user = await response.json();
-
+  console.log(context.req.headers.cookie.split("authToken=")[1]);
   return { props: { user: user?.user } };
 };
 export default withAuth(SingleUser);
