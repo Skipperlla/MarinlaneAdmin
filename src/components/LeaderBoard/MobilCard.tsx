@@ -73,7 +73,6 @@ const MobilCard: React.FC<{ data: ITopTen }> = ({ data }) => {
           </div>
         );
       })}
-      {/* <MobilPagination data={data} /> */}
     </>
   );
 };
