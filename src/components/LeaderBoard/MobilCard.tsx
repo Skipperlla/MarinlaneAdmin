@@ -17,7 +17,6 @@ export interface IMobilCard {
 }
 
 const MobilCard: React.FC<{ data: ITopTen }> = ({ data }) => {
-    console.log(data)
   return (
     <>
       {data?.data?.map((item, index) => {
@@ -74,7 +73,7 @@ const MobilCard: React.FC<{ data: ITopTen }> = ({ data }) => {
           </div>
         );
       })}
-      <MobilPagination data={data} />
+      {/* <MobilPagination data={data} /> */}
     </>
   );
 };

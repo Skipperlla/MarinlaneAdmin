@@ -10,6 +10,7 @@ import { AppState } from "store";
 import { io } from "socket.io-client";
 import Spinner from "@components/Spinner";
 import MobilCard from "@components/LeaderBoard/MobilCard";
+import MobilPagination from "@components/Pagination/MobilPagination";
 const socket = io(
   process.env.NODE_ENV === "production"
     ? "https://marinlane.herokuapp.com"
@@ -41,6 +42,7 @@ const LeaderBoard = () => {
   useEffect(() => {
     if (status === 200) setIsLoading(false);
   }, [status]);
+  console.log(Users);
   return (
     <Main>
       {loading ? (

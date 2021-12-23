@@ -25,7 +25,7 @@ const MobilPagination: React.FC<{
   data: { data: IMobilPagination[]; count: number; pagination: IPagination };
 }> = ({ data }) => {
   const router = useRouter();
-  console.log(data);
+
   return (
     <div className="block lg:hidden">
       {Object?.getOwnPropertyNames(data?.pagination)?.length > 0 && (
