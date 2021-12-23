@@ -3,7 +3,7 @@ import moment from "moment";
 import CurrencyFormat from "react-currency-format";
 import { useRouter } from "next/router";
 import { colorFilter } from "utils/lib/listItems";
-import Pagination from "@components/Customers/Pagination";
+import Pagination from "@components/Pagination/Pagination";
 import { IBooking } from "types/booking";
 import { IPagination } from "types/user";
 

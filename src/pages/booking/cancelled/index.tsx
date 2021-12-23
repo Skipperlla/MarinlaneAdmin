@@ -101,68 +101,7 @@ const index = () => {
               isFilter={isFilter}
               count={Bookings?.count}
             />
-            {Bookings?.count > 0 ? (
-              <>
-                {Bookings?.data?.map((item: IBooking, index: number) => {
-                  return (
-                    <MobilBooking
-                      key={index}
-                      Date={item.Date}
-                      Time={item.Time}
-                      createdAt={item.createdAt}
-                      duration={item.duration}
-                      status={item.status}
-                      uuid={item.uuid}
-                    />
-                  );
-                })}
-                {Object.getOwnPropertyNames(Bookings?.pagination).length >
-                  0 && (
-                  <div className="flex items-center justify-end">
-                    {Number(Bookings?.pagination?.next?.page) !== 2 && (
-                      <button
-                        className="text-xl mr-4"
-                        onClick={() => {
-                          router.push({
-                            pathname: router.pathname,
-                            query: {
-                              ...router.query,
-                              perPage: router.query.perPage
-                                ? Number(router?.query?.perPage) - 1
-                                : 1,
-                            },
-                          });
-                        }}
-                      >
-                        <FontAwesomeIcon icon="chevron-left" />
-                      </button>
-                    )}
-                    {Bookings?.pagination?.next?.page && (
-                      <button
-                        className="text-xl"
-                        onClick={() => {
-                          router.push({
-                            pathname: router.pathname,
-                            query: {
-                              ...router.query,
-                              perPage: router.query.perPage
-                                ? Number(router?.query?.perPage) + 1
-                                : 2,
-                            },
-                          });
-                        }}
-                      >
-                        <FontAwesomeIcon icon="chevron-right" />
-                      </button>
-                    )}
-                  </div>
-                )}
-              </>
-            ) : (
-              <div className="flex-1 items-center justify-center flex text-xl">
-                No Result Found
-              </div>
-            )}
+            <MobilBooking data={Bookings} />
           </>
         )}
       </div>

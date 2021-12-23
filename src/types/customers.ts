@@ -9,6 +9,7 @@ export interface ISingleUser {
   email: string;
   firstName: string;
   isBlocked: boolean;
+  lastSeen: number;
   lastName: string;
   newUser: boolean;
   notification: boolean;

@@ -39,7 +39,7 @@ const Filter: React.FC<IFilter> = ({ isFilter, router }) => {
           <input
             type="text"
             className="h-full py-3 pl-2 w-full bg-transparent rounded-t-xl focus:outline-none"
-            placeholder="Search"
+            placeholder="Pickup or Drop Off for Search"
             onChange={debounceTest}
           />
         </div>

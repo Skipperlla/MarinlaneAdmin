@@ -17,6 +17,7 @@ import fileDownload from "js-file-download";
 import withAuth from "utils/lib/withAuth";
 import { useAuth } from "@utils/contexts/useAuth";
 import { Error } from "@utils/lib/messages";
+import MobilPagination from "@components/Pagination/MobilPagination";
 const index = () => {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -113,46 +114,7 @@ const index = () => {
                     />
                   );
                 })}
-                {Object.getOwnPropertyNames(Users?.pagination).length > 0 && (
-                  <div className="flex items-center justify-end">
-                    {Number(Users?.pagination?.next?.page) !== 2 && (
-                      <button
-                        className="text-xl mr-4"
-                        onClick={() => {
-                          router.push({
-                            pathname: router.pathname,
-                            query: {
-                              ...router.query,
-                              perPage: router.query.perPage
-                                ? Number(router?.query?.perPage) - 1
-                                : 1,
-                            },
-                          });
-                        }}
-                      >
-                        <FontAwesomeIcon icon="chevron-left" />
-                      </button>
-                    )}
-                    {Users?.pagination?.next?.page && (
-                      <button
-                        className="text-xl"
-                        onClick={() => {
-                          router.push({
-                            pathname: router.pathname,
-                            query: {
-                              ...router.query,
-                              perPage: router.query.perPage
-                                ? Number(router?.query?.perPage) + 1
-                                : 2,
-                            },
-                          });
-                        }}
-                      >
-                        <FontAwesomeIcon icon="chevron-right" />
-                      </button>
-                    )}
-                  </div>
-                )}
+                <MobilPagination data={Users} />
               </>
             ) : (
               <div className="flex-1 items-center justify-center flex text-xl">

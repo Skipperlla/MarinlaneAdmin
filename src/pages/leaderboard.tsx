@@ -9,6 +9,7 @@ import { leaderBoard } from "store/actions/userAction";
 import { AppState } from "store";
 import { io } from "socket.io-client";
 import Spinner from "@components/Spinner";
+import MobilCard from "@components/LeaderBoard/MobilCard";
 const socket = io(
   process.env.NODE_ENV === "production"
     ? "https://marinlane.herokuapp.com"
@@ -72,12 +73,12 @@ const LeaderBoard = () => {
             <div className="my-6 text-2xl">
               <h1>All Users Spending</h1>
             </div>
-
             <SubCard
               data={topTen?.data}
               count={topTen?.count}
               pagination={topTen?.pagination}
             />
+            <MobilCard data={topTen?.data} />
           </div>
         </>
       )}

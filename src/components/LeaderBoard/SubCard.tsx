@@ -2,9 +2,9 @@ import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import CurrencyFormat from "react-currency-format";
-import Pagination from "@components/Customers/Pagination";
+import Pagination from "@components/Pagination/Pagination";
 import { useRouter } from "next/router";
-import { IPagination } from "types/user";
+import { IPagination, ITopTen } from "types/user";
 import Spinner from "@components/Spinner";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export interface ISubCard {
@@ -17,11 +17,7 @@ export interface ISubCard {
   createdAt: string;
   title: string;
 }
-const SubCard: React.FC<{
-  data: ISubCard[];
-  count: number;
-  pagination: IPagination;
-}> = ({ data, count, pagination }) => {
+const SubCard: React.FC<ITopTen> = ({ data, count, pagination }) => {
   const router = useRouter();
   const Titles = [
     "Full Name",
@@ -31,7 +27,7 @@ const SubCard: React.FC<{
     "Email",
   ];
   return (
-    <div className="">
+    <div className="hidden lg:block">
       <table className="table-auto w-full h-auto py-2 px-4 border bg-white rounded-xl">
         <thead className="">
           <tr className="border">

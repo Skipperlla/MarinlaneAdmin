@@ -188,7 +188,7 @@ export const getServerSideProps = async (context: {
     {
       headers: {
         Authorization: `Bearer: ${
-          context.req.headers.cookie.split("token=")[1]
+          context.req.headers.cookie.split("authToken=")[1]
         }`,
       },
     }

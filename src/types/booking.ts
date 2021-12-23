@@ -65,7 +65,7 @@ export interface IBooking {
   pickupPlaceId: string;
   dropOff: string;
   dropOffPlaceId: string;
-  Date: string;
+  Date: any;
   atDate: string;
   atIso: number;
   Time: string;

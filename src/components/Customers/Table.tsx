@@ -5,7 +5,7 @@ import CurrencyFormat from "react-currency-format";
 import { useRouter } from "next/router";
 
 import { ICustomers, IPagination } from "types/user";
-import Pagination from "./Pagination";
+import Pagination from "../Pagination/Pagination";
 
 const Table: React.FC<{
   data: ICustomers[];

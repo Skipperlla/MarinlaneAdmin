@@ -1,3 +1,4 @@
+import { IMobilCard } from "@components/LeaderBoard/MobilCard";
 import { ISubCard } from "@components/LeaderBoard/SubCard";
 import { ThunkDispatch } from "redux-thunk";
 import { ISingleUser } from "./customers";
@@ -13,19 +14,20 @@ export interface UserState {
 export interface IUsers {
   count: number;
   data: ICustomers[];
-  pagination: IPagination;
-  topTen: ITopTen;
-  topThree: ITopThree;
+  pagination: IPagination;// Buralar tekrar kontrol edilcek
+  topTen?: any;
+  topThree?: ITopThree;
 }
 
-interface ITopTen {
-  data: ISubCard[];
+export interface ITopTen {
+  data: IMobilCard[];
   count: number;
   pagination: IPagination;
 }
 interface ITopThree {
   data: ISubCard[];
   count: number;
+  pagination: IPagination;
 }
 
 export interface ICustomers {
@@ -44,6 +46,7 @@ export interface ICustomers {
   firstName: string;
   email: string;
   lastSeen: string;
+  createdAt: string;
   bookings: [{ createdAt: string; _id: string }];
 }
 export interface IPagination {
@@ -79,6 +82,7 @@ interface LEADER_BOARD_SUCCESS {
   payload: {
     count: number;
     data: ICustomers[];
+    pagination: IPagination;
   };
   status: number;
 }

@@ -40,7 +40,7 @@ const MobilFilter: React.FC<IMobilFilter> = ({
         <div className="bg-gray-200 h-10 rounded-t-xl relative flex">
           <input
             type="text"
-            placeholder="Search"
+            placeholder="Pickup or Drop Off for Search"
             onChange={debounceTest}
             defaultValue={router?.query?.q}
             className="bg-transparent h-full w-full	py-3 pl-2 outline-none rounded-t-xl"
