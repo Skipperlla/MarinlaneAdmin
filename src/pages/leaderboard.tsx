@@ -23,11 +23,9 @@ const LeaderBoard = () => {
   useEffect(() => {
     if (router?.isReady) dispatch(leaderBoard(router?.query));
   }, [router?.isReady, router?.query]);
-  const {
-    Users: { topTen, topThree },
-    loading,
-    status,
-  } = useSelector((state: AppState) => state.user);
+  const { Users, loading, status } = useSelector(
+    (state: AppState) => state.user
+  );
   // useEffect(() => {
   //   socket.on("newThought", (id) => {
   //     console.log(id);
@@ -55,7 +53,7 @@ const LeaderBoard = () => {
             <h1>Top 3 Spending</h1>
           </div>
           <div className="grid lg:grid-cols-3 gap-4 mt-4">
-            {topThree?.data?.map((item, index: number) => {
+            {Users?.topThree?.data?.map((item, index: number) => {
               return (
                 <LeaderCard
                   key={index}
@@ -74,11 +72,11 @@ const LeaderBoard = () => {
               <h1>All Users Spending</h1>
             </div>
             <SubCard
-              data={topTen?.data}
-              count={topTen?.count}
-              pagination={topTen?.pagination}
+              data={Users?.topTen?.data}
+              count={Users?.topTen?.count}
+              pagination={Users?.topTen?.pagination}
             />
-            <MobilCard data={topTen?.data} />
+            <MobilCard data={Users?.topTen} />
           </div>
         </>
       )}

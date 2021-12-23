@@ -17,6 +17,7 @@ export interface IMobilCard {
 }
 
 const MobilCard: React.FC<{ data: ITopTen }> = ({ data }) => {
+    console.log(data)
   return (
     <>
       {data?.data?.map((item, index) => {
