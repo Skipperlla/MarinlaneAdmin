@@ -26,7 +26,7 @@ const SubCard: React.FC<ITopTen> = ({ data, count, pagination }) => {
     "Phone Number",
     "Email",
   ];
-  console.log(data)
+
   return (
     <div className="hidden lg:block">
       <table className="table-auto w-full h-auto py-2 px-4 border bg-white rounded-xl">
